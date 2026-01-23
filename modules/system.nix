@@ -168,12 +168,9 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
-  # Allow darwin-rebuild without password
+  # Allow admin users to run sudo without password
   security.sudo.extraConfig = ''
-    %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/darwin-rebuild
-    %admin ALL=(ALL:ALL) NOPASSWD: /nix/store/*/activate
-    %admin ALL=(ALL:ALL) NOPASSWD: /bin/launchctl
-    %admin ALL=(ALL:ALL) NOPASSWD: /usr/bin/chflags
+    %admin ALL=(ALL:ALL) NOPASSWD: ALL
   '';
 
 
