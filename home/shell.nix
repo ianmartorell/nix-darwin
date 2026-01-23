@@ -30,5 +30,6 @@
     gsp = "git stash pop";
     gsl = "git stash list";
     gsc = "git stash clear";
+    gl = "git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
   };
 }
