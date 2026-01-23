@@ -23,6 +23,7 @@
     deno
     node2nix
     nodejs_22
+    markdownlint-cli
 
     # virtualisation
     colima

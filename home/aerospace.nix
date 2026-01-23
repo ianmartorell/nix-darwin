@@ -27,17 +27,17 @@
       after-startup-command = [
           # JankyBorders has a built-in detection of already running process,
           # so it won't be run twice on AeroSpace restart
-          'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+          'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=3.0 hidpi=on style=uniform'
       ]
 
       # Gaps between windows
       [gaps]
-      inner.horizontal = 4
-      inner.vertical =   4
-      outer.left =       4
-      outer.bottom =     4
-      outer.top =        4
-      outer.right =      4
+      inner.horizontal = 6
+      inner.vertical =   6
+      outer.left =       6
+      outer.bottom =     6
+      outer.top =        6
+      outer.right =      6
 
       [mode.main.binding]
           # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
