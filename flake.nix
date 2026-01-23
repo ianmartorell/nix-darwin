@@ -31,7 +31,7 @@
     ...
   }: let
     username = "ian";
-    useremail = "nix@ian.cat";
+    useremail = "ianmartorell@gmail.com";
     system = "aarch64-darwin";
     hostname = "mbp";
 
@@ -54,7 +54,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup";
+          home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = specialArgs;
           home-manager.users.${username} = import ./home;
         }

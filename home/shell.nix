@@ -16,7 +16,6 @@
     nixfmt = "nixfmt-rfc-style";
     urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
     urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-    remap-keychron = "/usr/bin/hidutil property --match '{\"ProductID\":0x2d1,\"VendorID\":0x3434,\"Product\":\"Keychron K13 Pro\"}' --set '{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x700000039,\"HIDKeyboardModifierMappingDst\":0x700000029},{\"HIDKeyboardModifierMappingSrc\":0x700000035,\"HIDKeyboardModifierMappingDst\":0x700000064},{\"HIDKeyboardModifierMappingSrc\":0x700000064,\"HIDKeyboardModifierMappingDst\":0x700000031}]}'";
     gs = "git status";
     gd = "git diff";
     gdc = "git diff --cached";
