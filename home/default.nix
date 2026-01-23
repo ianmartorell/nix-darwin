@@ -6,11 +6,13 @@
     ./shell.nix
     ./core.nix
     ./git.nix
+    ./gh.nix
     ./ssh.nix
     ./starship.nix
     ./karabiner.nix
     ./aerospace.nix
     ./nvim.nix
+    ./zed.nix
   ];
 
   # Home Manager needs a bit of information about you and the
