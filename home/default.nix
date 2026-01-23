@@ -6,6 +6,7 @@
     ./shell.nix
     ./core.nix
     ./git.nix
+    ./ssh.nix
     ./starship.nix
     ./karabiner.nix
   ];

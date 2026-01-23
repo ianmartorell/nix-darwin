@@ -29,12 +29,9 @@
     # You need to install all these Apps manually first so that your apple account have records for them.
     # otherwise Apple Store will refuse to install them.
     # For details, see https://github.com/mas-cli/mas
-    masApps = {
-      # Xcode = 497799835;
-    };
+    masApps = {};
 
     taps = [
-      # "homebrew/services"
       "timrogers/tap"
       "nikitabobko/tap"
     ];
@@ -70,11 +67,9 @@
       "cursor"
       "zed"
       "visual-studio-code"
-      # "windsurf"
       "linear-linear"
       "tableplus"
       "iterm2"
-      # "warp"
 
       "autodesk-fusion"
       "autofirma"
@@ -100,8 +95,6 @@
       "windows-app"
 
       "libreoffice"
-      # "microsoft-excel"
-      # "microsoft-word"
 
       "adobe-acrobat-reader"
       "steam"

@@ -12,6 +12,57 @@
         success_symbol = "[›](bold green)";
         error_symbol = "[›](bold red)";
       };
+
+      # Command execution time
+      cmd_duration = {
+        min_time = 500;
+        format = "took [$duration]($style) ";
+      };
+
+      # Battery indicator
+      battery = {
+        full_symbol = "🔋";
+        charging_symbol = "⚡️";
+        discharging_symbol = "💀";
+        display = [
+          {
+            threshold = 20;
+            style = "bold red";
+          }
+          {
+            threshold = 50;
+            style = "bold yellow";
+          }
+        ];
+      };
+
+      # Time
+      time = {
+        disabled = false;
+        format = "🕙[\\[ $time \\]]($style) ";
+        time_format = "%T";
+      };
+
+      # Directory - show more depth
+      directory = {
+        truncation_length = 5;
+        truncate_to_repo = false;
+      };
+
+      # Git status - more detailed
+      git_status = {
+        conflicted = "🏳";
+        ahead = "⇡\${count}";
+        behind = "⇣\${count}";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+        untracked = "🤷";
+        stashed = "📦";
+        modified = "📝";
+        staged = "[++\\($count\\)](green)";
+        renamed = "👅";
+        deleted = "🗑";
+      };
+
       aws = {
         symbol = "🅰 ";
       };
@@ -25,14 +76,29 @@
         symbol = "🍞 ";
       };
       nodejs = {
+        format = "via [🤖 $version](bold green) ";
         detect_files = [
           "package.json"
           ".node-version"
           "!bun.lock"
         ];
       };
+      python = {
+        format = "via [🐍 $version](bold yellow) ";
+      };
+      rust = {
+        format = "via [🦀 $version](bold red) ";
+      };
+      golang = {
+        format = "via [🐹 $version](bold cyan) ";
+      };
       conda = {
         symbol = "🐍 ";
+      };
+
+      # Nix shell indicator
+      nix_shell = {
+        format = "via [☃️ $state( \\($name\\))](bold blue) ";
       };
     };
   };

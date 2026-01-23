@@ -1,0 +1,16 @@
+# Nix build results
+result
+result-*
+
+# Home Manager backups
+*.hm-backup
+
+# macOS
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

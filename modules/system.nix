@@ -112,20 +112,11 @@
           DSDontWriteNetworkStores = true;
           DSDontWriteUSBStores = true;
         };
-        "com.apple.spaces" = {
-          # "spans-displays" = 0; # Display have seperate spaces
-        };
+        "com.apple.spaces" = {};
         "com.apple.WindowManager" = {
-          # EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
-          # StandardHideDesktopIcons = 0; # Show items on desktop
-          # HideDesktop = 0; # Do not hide items on desktop & stage manager
-          # StageManagerHideWidgets = 0;
-          # StandardHideWidgets = 0;
           DisableTilingAnimations = true;
         };
         "com.apple.screensaver" = {
-          # Require password immediately after sleep or screen saver begins
-          # askForPassword = 1;
           askForPasswordDelay = 10;
         };
         "com.apple.screencapture" = {
@@ -156,15 +147,8 @@
             "64" = {
               enabled = false;
             };
-            # # Disable 'Cmd + Alt + Space' for Finder search window
-            # "65" = {
-            #   enabled = false;
-            # };
           };
         };
-        # "com.apple.mail" = {
-        #   DisableInlineAttachmentViewing = true;
-        # };
         "com.apple.print.PrintingPrefs" = {
           # Automatically quit printer app once the print jobs complete
           "Quit When Finished" = true;
@@ -176,18 +160,8 @@
 
       loginwindow = {
         GuestEnabled = false; # disable guest user
-        # SHOWFULLNAME = true;  # show full name in login window
       };
     };
-
-    # Not using this because it doesn't work on restart. Although now that I added
-    # hidutil to Input Monitoring maybe it does...
-    # keyboard = {
-    #   enableKeyMapping = true; # enable key mapping so that we can use `option` as `control`
-    #   remapCapsLockToEscape = true; # remap caps lock to escape, useful for vim users
-    #   nonUS.remapTilde = true;
-    # };
-
   };
 
   # Generic hidutil configuration for internal keyboard and others
