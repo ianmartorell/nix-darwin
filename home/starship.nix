@@ -19,48 +19,24 @@
         format = "took [$duration]($style) ";
       };
 
-      # Battery indicator
-      battery = {
-        full_symbol = "🔋";
-        charging_symbol = "⚡️";
-        discharging_symbol = "💀";
-        display = [
-          {
-            threshold = 20;
-            style = "bold red";
-          }
-          {
-            threshold = 50;
-            style = "bold yellow";
-          }
-        ];
-      };
-
-      # Time
-      time = {
-        disabled = false;
-        format = "🕙[\\[ $time \\]]($style) ";
-        time_format = "%T";
-      };
-
       # Directory - show more depth
       directory = {
         truncation_length = 5;
         truncate_to_repo = false;
       };
 
-      # Git status - more detailed
+      # Git status - simplified
       git_status = {
-        conflicted = "🏳";
+        conflicted = "=";
         ahead = "⇡\${count}";
         behind = "⇣\${count}";
         diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
-        untracked = "🤷";
-        stashed = "📦";
-        modified = "📝";
-        staged = "[++\\($count\\)](green)";
-        renamed = "👅";
-        deleted = "🗑";
+        untracked = "?";
+        stashed = "$";
+        modified = "!";
+        staged = "[+\${count}](green)";
+        renamed = "»";
+        deleted = "✘";
       };
 
       aws = {
