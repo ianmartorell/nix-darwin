@@ -41,9 +41,6 @@
     caddy
     gnupg
 
-    # window management
-    jankyborders # colored borders for focused windows
-
     # productivity
     glow # markdown previewer in terminal
 

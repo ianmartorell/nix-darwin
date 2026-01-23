@@ -23,12 +23,8 @@
       # Mouse follows focus when focused monitor changes
       on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-      # Start JankyBorders to highlight focused windows with colored borders
-      after-startup-command = [
-          # JankyBorders has a built-in detection of already running process,
-          # so it won't be run twice on AeroSpace restart
-          'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=3.0 hidpi=on style=uniform'
-      ]
+      # Mouse follows focus when focused monitor changes
+      after-startup-command = []
 
       # Gaps between windows
       [gaps]
