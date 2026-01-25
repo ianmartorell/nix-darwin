@@ -16,7 +16,21 @@
             parameters = {};
             rules = [];
           };
-          devices = [];
+          devices = [
+            {
+              identifiers = {
+                is_keyboard = true;
+                is_pointing_device = true;
+                product_id = 721;
+                vendor_id = 13364;
+              };
+              disable_built_in_keyboard_if_exists = false;
+              ignore = false;
+              ignore_vendor_events = true;
+              manipulate_caps_lock_led = true;
+              treat_as_built_in_keyboard = false;
+            }
+          ];
           fn_function_keys = [];
           simple_modifications = [
             {
