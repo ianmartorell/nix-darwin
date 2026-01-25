@@ -65,6 +65,7 @@
 
       "slack"
       "cursor"
+      "claude"
       "zed"
       "visual-studio-code"
       "linear-linear"
