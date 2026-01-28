@@ -89,6 +89,41 @@ outer.right =      6
     alt-shift-9 = 'move-node-to-workspace 9'
     alt-shift-0 = 'move-node-to-workspace 10'
 
+    # Letter workspaces
+    alt-a = 'workspace A' # Hidden workspace for floating bars (Amie)
+    alt-b = 'workspace B' # Browser
+    alt-c = 'workspace C' # Chat
+    alt-d = 'workspace D' # Design
+    alt-g = 'workspace G' # Games
+    alt-i = 'workspace I' # IDE
+    alt-m = 'workspace M' # Music/Media
+    alt-n = 'workspace N' # Notes
+    alt-o = 'workspace O' # Office
+    alt-p = 'workspace P' # Passwords
+    alt-r = 'workspace R' # Reading
+    alt-t = 'workspace T' # Terminal
+    alt-u = 'workspace U' # Utilities
+    alt-v = 'workspace V' # Video
+    alt-w = 'workspace W' # Writing
+    alt-y = 'workspace Y' # Misc
+
+    alt-shift-a = 'move-node-to-workspace A'
+    alt-shift-b = 'move-node-to-workspace B'
+    alt-shift-c = 'move-node-to-workspace C'
+    alt-shift-d = 'move-node-to-workspace D'
+    alt-shift-g = 'move-node-to-workspace G'
+    alt-shift-i = 'move-node-to-workspace I'
+    alt-shift-m = 'move-node-to-workspace M'
+    alt-shift-n = 'move-node-to-workspace N'
+    alt-shift-o = 'move-node-to-workspace O'
+    alt-shift-p = 'move-node-to-workspace P'
+    alt-shift-r = 'move-node-to-workspace R'
+    alt-shift-t = 'move-node-to-workspace T'
+    alt-shift-u = 'move-node-to-workspace U'
+    alt-shift-v = 'move-node-to-workspace V'
+    alt-shift-w = 'move-node-to-workspace W'
+    alt-shift-y = 'move-node-to-workspace Y'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
@@ -104,3 +139,247 @@ outer.right =      6
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+# =============================================================================
+# Window rules
+# =============================================================================
+
+# Exclude Amie floating bar - move to dedicated workspace and float
+[[on-window-detected]]
+if.app-id = 'so.amie.electron-app'
+if.window-title-regex-substring = '^$'
+run = ['layout floating', 'move-node-to-workspace A']
+
+# =============================================================================
+# System apps - floating by default
+# =============================================================================
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.DiskUtility'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+# =============================================================================
+# Auto-assign apps to workspaces
+# =============================================================================
+
+# Browser (B)
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+run = 'move-node-to-workspace B'
+
+# Chat (C)
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace C'
+
+# Design (D)
+[[on-window-detected]]
+if.app-id = 'com.figma.Desktop'
+run = 'move-node-to-workspace D'
+
+[[on-window-detected]]
+if.app-id = 'com.bohemiancoding.sketch3'
+run = 'move-node-to-workspace D'
+
+[[on-window-detected]]
+if.app-id = 'com.serif.affinity-designer-2'
+run = 'move-node-to-workspace D'
+
+# Games (G)
+[[on-window-detected]]
+if.app-id = 'com.valvesoftware.steam'
+run = 'move-node-to-workspace G'
+
+# IDE (I)
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.intellij'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.dt.Xcode'
+run = 'move-node-to-workspace I'
+
+# Music/Media (M)
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace M'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'move-node-to-workspace M'
+
+[[on-window-detected]]
+if.app-id = 'org.videolan.vlc'
+run = 'move-node-to-workspace M'
+
+# Notes (N)
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace N'
+
+[[on-window-detected]]
+if.app-id = 'notion.id'
+run = 'move-node-to-workspace N'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = 'move-node-to-workspace N'
+
+[[on-window-detected]]
+if.app-id = 'net.shinyfrog.bear'
+run = 'move-node-to-workspace N'
+
+# Office (O)
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Word'
+run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Excel'
+run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Powerpoint'
+run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iWork.Pages'
+run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iWork.Numbers'
+run = 'move-node-to-workspace O'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iWork.Keynote'
+run = 'move-node-to-workspace O'
+
+# Passwords (P)
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'move-node-to-workspace P'
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = 'move-node-to-workspace P'
+
+# Reading (R)
+[[on-window-detected]]
+if.app-id = 'com.amazon.Kindle'
+run = 'move-node-to-workspace R'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iBooksX'
+run = 'move-node-to-workspace R'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = 'move-node-to-workspace R'
+
+# Terminal (T)
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'dev.warp.Warp-Stable'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace T'
+
+# Utilities (U)
+[[on-window-detected]]
+if.app-id = 'com.runningwithcrayons.Alfred'
+run = 'move-node-to-workspace U'
+
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = 'move-node-to-workspace U'
+
+# Video (V)
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = 'move-node-to-workspace V'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.FaceTime'
+run = 'move-node-to-workspace V'
+
+[[on-window-detected]]
+if.app-id = 'com.obsproject.obs-studio'
+run = 'move-node-to-workspace V'
+
+# Writing (W)
+[[on-window-detected]]
+if.app-id = 'pro.writer.mac'
+run = 'move-node-to-workspace W'
+
+[[on-window-detected]]
+if.app-id = 'com.ulyssesapp.mac'
+run = 'move-node-to-workspace W'
