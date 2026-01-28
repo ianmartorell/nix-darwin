@@ -10,7 +10,12 @@ This is a nix-darwin configuration repository for managing a macOS system declar
 
 **Apply configuration changes:**
 ```bash
-darwin-rebuild switch --flake .
+darwin-rebuild switch
+```
+
+**Reload AeroSpace config:**
+```bash
+aerospace reload-config
 ```
 
 **Format Nix files:**
@@ -22,6 +27,11 @@ alejandra .
 ```bash
 nix flake check
 ```
+
+## After Making Changes
+
+- **Always** run `darwin-rebuild switch` after updating any nix configuration files
+- **Always** run `aerospace reload-config` after updating `home/aerospace/aerospace.toml`
 
 ## Architecture
 
