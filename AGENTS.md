@@ -50,6 +50,7 @@ The `flake.nix` defines:
 - `starship.nix` - Prompt customization
 - `karabiner.nix` - Keyboard remapping (caps lock → escape)
 - `aerospace.nix` - Window manager config (symlinks TOML file)
+- `aerospace/aerospace.toml` - AeroSpace tiling window manager configuration
 - `nvim.nix` - Neovim config (symlinks kickstart.nvim-based setup)
 
 ### Package Management Strategy
@@ -64,3 +65,36 @@ The `flake.nix` defines:
 - External config files (aerospace TOML, nvim lua) are symlinked via `xdg.configFile`
 - Shell aliases defined in `home/shell.nix` include git shortcuts (gs, gd, gc, etc.)
 - Git uses conditional includes for work-specific config at `~/Code/rapidand/`
+
+### AeroSpace Window Manager
+
+**Keybinding style**: i3-style with vim navigation (alt+h/j/k/l for focus)
+
+**Workspaces**:
+- Numbers 1-10: General purpose workspaces
+- Letters with mnemonic names:
+  - A: Hidden workspace for floating bars (Amie)
+  - B: Browser (Safari, Chrome, Firefox, Arc, Brave)
+  - C: Chat (WhatsApp, Discord, Slack, WeChat, Telegram, Messages)
+  - D: Design (Figma, Sketch, Affinity Designer)
+  - G: Games (Steam)
+  - I: IDE (VS Code, Cursor, IntelliJ, Xcode)
+  - M: Music/Media (Spotify, Apple Music, VLC)
+  - N: Notes (Obsidian, Notion, Apple Notes, Bear)
+  - O: Office (Microsoft Office, iWork apps)
+  - P: Passwords (1Password, Bitwarden)
+  - R: Reading (Kindle, Books, Preview)
+  - T: Terminal (iTerm, Terminal, Warp, Alacritty)
+  - U: Utilities (Alfred, Raycast)
+  - V: Video (Zoom, FaceTime, OBS)
+  - W: Writing (iA Writer, Ulysses)
+  - Y: Misc
+
+**Window rules**:
+- System apps float by default: Finder, System Settings, Calculator, Activity Monitor, Disk Utility
+- Amie floating bar (empty title window) moves to workspace A to prevent focus interference
+
+**Known limitations**:
+- Cannot hide specific workspaces from menu bar (would need SketchyBar)
+- Cannot fully exclude windows from management (feature pending: sticky floating windows)
+- Special characters like `grave` not supported in keybindings
