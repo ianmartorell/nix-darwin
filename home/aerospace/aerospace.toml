@@ -18,8 +18,8 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 # Mouse follows focus when focused monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# Mouse follows focus when focused monitor changes
-after-startup-command = []
+# Switch to workspace 1 on startup
+after-startup-command = ['workspace 1']
 
 # Gaps between windows
 [gaps]
@@ -101,7 +101,6 @@ outer.right =      6
     alt-o = 'workspace O' # Office
     alt-p = 'workspace P' # Passwords
     alt-r = 'workspace R' # Reading
-    alt-t = 'workspace T' # Terminal
     alt-u = 'workspace U' # Utilities
     alt-v = 'workspace V' # Video
     alt-w = 'workspace W' # Writing
@@ -118,7 +117,6 @@ outer.right =      6
     alt-shift-o = 'move-node-to-workspace O'
     alt-shift-p = 'move-node-to-workspace P'
     alt-shift-r = 'move-node-to-workspace R'
-    alt-shift-t = 'move-node-to-workspace T'
     alt-shift-u = 'move-node-to-workspace U'
     alt-shift-v = 'move-node-to-workspace V'
     alt-shift-w = 'move-node-to-workspace W'
@@ -172,6 +170,14 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
 run = 'layout floating'
 
 # =============================================================================
@@ -282,10 +288,6 @@ if.app-id = 'notion.id'
 run = 'move-node-to-workspace N'
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Notes'
-run = 'move-node-to-workspace N'
-
-[[on-window-detected]]
 if.app-id = 'net.shinyfrog.bear'
 run = 'move-node-to-workspace N'
 
@@ -335,23 +337,6 @@ run = 'move-node-to-workspace R'
 [[on-window-detected]]
 if.app-id = 'com.apple.Preview'
 run = 'move-node-to-workspace R'
-
-# Terminal (T)
-[[on-window-detected]]
-if.app-id = 'com.googlecode.iterm2'
-run = 'move-node-to-workspace T'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Terminal'
-run = 'move-node-to-workspace T'
-
-[[on-window-detected]]
-if.app-id = 'dev.warp.Warp-Stable'
-run = 'move-node-to-workspace T'
-
-[[on-window-detected]]
-if.app-id = 'org.alacritty'
-run = 'move-node-to-workspace T'
 
 # Utilities (U)
 [[on-window-detected]]

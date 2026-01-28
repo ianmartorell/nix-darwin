@@ -80,7 +80,7 @@ The `flake.nix` defines:
   - G: Games (Steam)
   - I: IDE (VS Code, Cursor, IntelliJ, Xcode)
   - M: Music/Media (Spotify, Apple Music, VLC)
-  - N: Notes (Obsidian, Notion, Apple Notes, Bear)
+  - N: Notes (Obsidian, Notion, Bear)
   - O: Office (Microsoft Office, iWork apps)
   - P: Passwords (1Password, Bitwarden)
   - R: Reading (Kindle, Books, Preview)
@@ -91,7 +91,7 @@ The `flake.nix` defines:
   - Y: Misc
 
 **Window rules**:
-- System apps float by default: Finder, System Settings, Calculator, Activity Monitor, Disk Utility
+- System apps float by default: Finder, System Settings, Calculator, Activity Monitor, Disk Utility, Reminders, Notes
 - Amie floating bar (empty title window) moves to workspace A to prevent focus interference
 
 **Known limitations**:
