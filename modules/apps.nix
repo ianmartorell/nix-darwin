@@ -70,6 +70,7 @@
       "visual-studio-code"
       "linear-linear"
       "tableplus"
+      "superset"
       "iterm2"
 
       "autodesk-fusion"
