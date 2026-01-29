@@ -214,6 +214,9 @@ vim.keymap.set('n', '<leader>od', function()
   require('persistence').stop()
 end, { desc = "Stop persistence (session won't be saved on exit)" })
 
+-- Delete word backwards with Alt+Backspace in insert mode
+vim.keymap.set('i', '<M-BS>', '<C-w>', { desc = 'Delete word backwards' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
