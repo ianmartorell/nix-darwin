@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {
   home.packages = with pkgs; [
     # Archives
@@ -125,7 +125,7 @@
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
-      config.whitelist.prefix = [ "/Users/ian/.superset" ];
+      config.whitelist.prefix = [ "/Users/${username}/.superset" ];
     };
   };
 }
