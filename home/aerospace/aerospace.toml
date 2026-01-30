@@ -253,10 +253,10 @@ run = 'move-node-to-workspace D'
 if.app-id = 'com.valvesoftware.steam'
 run = 'move-node-to-workspace G'
 
-# Terminals (3)
+# Terminals (I)
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace I'
 
 # IDE (I)
 [[on-window-detected]]
