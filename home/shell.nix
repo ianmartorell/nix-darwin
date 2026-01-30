@@ -16,24 +16,7 @@
   };
 
   home.shellAliases = {
-    nixfmt = "nixfmt-rfc-style";
     urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
     urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-    ga = "git add";
-    gs = "git status";
-    gd = "git diff";
-    gdc = "git diff --cached";
-    gc = "git commit";
-    gcm = "git commit -m";
-    gca = "git commit -am";
-    gco = "git checkout";
-    gb = "git branch";
-    gp = "git push";
-    gpl = "git pull";
-    gss = "git stash";
-    gsp = "git stash pop";
-    gsl = "git stash list";
-    gsc = "git stash clear";
-    gl = "git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
   };
 }

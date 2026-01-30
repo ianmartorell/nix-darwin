@@ -12,6 +12,26 @@
     rm -f ~/.gitconfig
   '';
 
+  # Git aliases (shell aliases for git commands)
+  home.shellAliases = {
+    ga = "git add";
+    gs = "git status";
+    gd = "git diff";
+    gdc = "git diff --cached";
+    gc = "git commit";
+    gcm = "git commit -m";
+    gca = "git commit -am";
+    gco = "git checkout";
+    gb = "git branch";
+    gp = "git push";
+    gpl = "git pull";
+    gss = "git stash";
+    gsp = "git stash pop";
+    gsl = "git stash list";
+    gsc = "git stash clear";
+    gl = "git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+  };
+
   programs.git = {
     enable = true;
     lfs.enable = true;
