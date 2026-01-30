@@ -185,26 +185,30 @@ run = 'layout floating'
 # Auto-assign apps to workspaces
 # =============================================================================
 
-# Browser (B)
+# Browser (1)
 [[on-window-detected]]
 if.app-id = 'com.apple.Safari'
-run = 'move-node-to-workspace B'
+run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace B'
+run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
-run = 'move-node-to-workspace B'
+run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
-run = 'move-node-to-workspace B'
+run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
-run = 'move-node-to-workspace B'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.dia'
+run = 'move-node-to-workspace 1'
 
 # Chat (C)
 [[on-window-detected]]
@@ -249,10 +253,14 @@ run = 'move-node-to-workspace D'
 if.app-id = 'com.valvesoftware.steam'
 run = 'move-node-to-workspace G'
 
-# IDE (I)
+# Terminals (3)
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
-if.during-aerospace-startup = true
+run = 'move-node-to-workspace 3'
+
+# IDE (I)
+[[on-window-detected]]
+if.app-id = 'com.superset.desktop'
 run = 'move-node-to-workspace I'
 
 [[on-window-detected]]

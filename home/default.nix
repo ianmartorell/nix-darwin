@@ -12,6 +12,8 @@
     ./karabiner.nix
     ./aerospace.nix
     ./nvim.nix
+    ./zed.nix
+    ./mpv.nix
   ];
 
   # Home Manager needs a bit of information about you and the

@@ -8,9 +8,14 @@
   #
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
+    # Editors
     neovim
+
+    # Version Control
     git
     lazygit
+
+    # Nix
     nixfmt-rfc-style
   ];
   environment.variables.EDITOR = "nvim";
@@ -38,69 +43,93 @@
 
     # `brew install`
     brews = [
-      "wget" # download tool
-      "curl" # no not install curl via nixpkgs, it's not working well on macOS!
-      "aria2" # download tool
-      "httpie" # http client
+      # Network / Download
+      "wget"
+      "curl" # do not install via nixpkgs, not working well on macOS
+      "aria2"
+      "httpie"
+
+      # Development
       "gh" # github cli
-      "litra" # logitech litra
       "flyctl" # fly.io cli
+
+      # Hardware
+      "litra" # logitech litra light control
     ];
 
     # `brew install --cask`
     casks = [
+      # System Utilities
       "stats"
       "raycast"
+      "karabiner-elements"
+      "nikitabobko/tap/aerospace"
+      "tailscale-app"
+      "nordvpn"
+
+      # Productivity
       "amie"
+      "sunsama"
       "bitwarden"
       "loom"
-      "ollama-app"
-      "handbrake-app"
-      "sonic-pi"
-      "amazon-chime"
+      "wispr-flow"
+      "libreoffice"
+      "adobe-acrobat-reader"
 
+      # Browsers
       "zen"
       "google-chrome"
       "arc"
 
-      "slack"
+      # Development
+      "iterm2"
       "cursor"
-      "claude"
       "zed"
       "visual-studio-code"
-      "linear-linear"
       "tableplus"
       "superset"
-      "iterm2"
+      "insomnia"
+      "linear-linear"
 
-      "autodesk-fusion"
-      "autofirma"
-      "karabiner-elements"
-      "nikitabobko/tap/aerospace"
+      # AI
+      "claude"
+      "ollama-app"
+      "comet"
 
-      "spotify"
-      "plex-media-server"
-
+      # Communication
+      "slack"
+      "amazon-chime"
       "whatsapp"
       "telegram"
       "discord"
       "wechat"
 
+      # Media
+      "spotify"
+      "plex-media-server"
+      "stolendata-mpv"
+      "handbrake-app"
+      "sonic-pi"
+
+      # Design & CAD
+      "autodesk-fusion"
+      "freecad"
       "orcaslicer"
       "openscad"
       "inkscape"
       "gimp"
 
-      "tailscale-app"
+      # File Transfer & Remote
       "transmission"
       "cyberduck"
       "windows-app"
 
-      "libreoffice"
-
-      "adobe-acrobat-reader"
+      # Gaming
       "steam"
-      "nordvpn"
+      "nvidia-geforce-now"
+
+      # Government / Signing
+      "autofirma"
     ];
   };
 }

@@ -31,6 +31,9 @@
         show-recents = false; # disable recent apps
         expose-group-apps = true;
         mru-spaces = false;
+        tilesize = 72; # dock icon size
+        mineffect = "scale"; # minimize animation: scale or genie
+        minimize-to-application = true; # minimize windows into app icon
 
         # customize Hot Corners
         wvous-tl-corner = 2; # top-left - Mission Control
@@ -81,6 +84,11 @@
         NSAutomaticSpellingCorrectionEnabled = false; # disable auto spelling correction
         NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
         NSNavPanelExpandedStateForSaveMode2 = true;
+        NSDocumentSaveNewDocumentsToCloud = false; # save to disk by default, not iCloud
+        AppleShowScrollBars = "Always"; # always show scrollbars
+        PMPrintingExpandedStateForPrint = true; # expand print panel by default
+        PMPrintingExpandedStateForPrint2 = true;
+        AppleWindowTabbingMode = "manual"; # disable automatic tab behavior
       };
 
       # Customize settings that not supported by nix-darwin directly
@@ -156,6 +164,42 @@
         "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
         # Turn on app auto-update
         "com.apple.commerce".AutoUpdate = true;
+        # Activity Monitor: show all processes
+        "com.apple.ActivityMonitor" = {
+          ShowCategory = 0; # 0 = All Processes
+          IconType = 5; # 5 = CPU usage in dock icon
+        };
+        # TextEdit: use plain text by default
+        "com.apple.TextEdit" = {
+          RichText = 0;
+          PlainTextEncoding = 4; # UTF-8
+          PlainTextEncodingForWrite = 4;
+        };
+        # Disk Utility: show all devices
+        "com.apple.DiskUtility" = {
+          DUDebugMenuEnabled = true;
+          "advanced-image-options" = true;
+        };
+        # iTerm2 settings (profile colors/fonts managed separately via iTerm2)
+        "com.googlecode.iterm2" = {
+          PromptOnQuit = false; # don't prompt when quitting
+          OnlyWhenMoreTabs = true; # only prompt if multiple tabs open
+          HideTab = false; # show tab bar even with single tab
+          AlternateMouseScroll = true; # scroll with mouse in alternate screen mode
+          FocusFollowsMouse = false;
+          OpenTmuxWindowsIn = 2; # open tmux windows as tabs
+          HapticFeedbackForEsc = false;
+          TabStyleWithAutomaticOption = 5; # minimal tab style
+        };
+        # Safari settings
+        "com.apple.Safari" = {
+          IncludeDevelopMenu = true; # enable Develop menu
+          ShowFavoritesBar = true; # show favorites bar
+          AutoOpenSafeDownloads = false; # don't auto-open safe downloads
+          ShowOverlayStatusBar = true; # show status bar
+          WebKitDeveloperExtrasEnabledPreferenceKey = true;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+        };
       };
 
       loginwindow = {

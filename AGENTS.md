@@ -111,3 +111,34 @@ The `flake.nix` defines:
 - Cannot hide specific workspaces from menu bar (would need SketchyBar)
 - Cannot fully exclude windows from management (feature pending: sticky floating windows)
 - Special characters like `grave` not supported in keybindings
+
+### Login Items (Manual Configuration)
+
+These apps are configured to "Open at Login" via System Settings (cannot be managed by nix-darwin):
+- Raycast
+- Amie
+- AeroSpace
+- Bitwarden
+- Claude
+
+To configure: System Settings → General → Login Items → add apps under "Open at Login"
+
+### Ollama Service (Homebrew Managed)
+
+Ollama runs as a Homebrew service with custom environment variables:
+- `OLLAMA_FLASH_ATTENTION=1` - Enable flash attention
+- `OLLAMA_KV_CACHE_TYPE=q8_0` - KV cache quantization
+
+LaunchAgent: `~/Library/LaunchAgents/homebrew.mxcl.ollama.plist`
+
+Commands:
+```bash
+brew services start ollama   # Start the service
+brew services stop ollama    # Stop the service
+brew services restart ollama # Restart after config changes
+```
+
+To modify environment variables, edit the plist directly or use:
+```bash
+launchctl setenv OLLAMA_FLASH_ATTENTION 1
+```

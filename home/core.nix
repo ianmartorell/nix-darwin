@@ -1,49 +1,59 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # archives
+    # Archives
     zip
     xz
     unzip
     p7zip
+    zstd
 
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processer https://github.com/mikefarah/yq
-    fzf # A command-line fuzzy finder
+    # Search & Text Processing
+    ripgrep
+    jq
+    yq-go
+    fzf
+    gnused
+    gawk
 
-    aria2 # A lightweight multi-protocol & multi-source command-line download utility
-    socat # replacement of openbsd-netcat
-    nmap # A utility for network discovery and security auditing
+    # Network
+    aria2
+    socat
+    nmap
 
-    # dev
+    # Nix Development
     nixd
     nil
+
+    # Node.js
     deno
     node2nix
     nodejs_22
+
+    # Linting
     markdownlint-cli
 
-    # virtualisation
+    # Containers
     colima
     docker
 
-    # misc
-    cowsay
+    # GNU Utilities
     file
     which
     tree
-    gnused
     gnutar
-    gawk
-    zstd
-    caddy
+
+    # Security
     gnupg
 
-    # productivity
-    glow # markdown previewer in terminal
+    # Servers
+    caddy
 
+    # Productivity
+    glow # markdown previewer
+
+    # Fun
+    cowsay
   ];
 
   programs = {
@@ -71,7 +81,36 @@
         manager = {
           show_hidden = true;
           sort_dir_first = true;
+          sort_by = "natural";
+          sort_sensitive = false;
+          sort_reverse = false;
+          linemode = "size";
+          show_symlink = true;
         };
+        preview = {
+          image_filter = "triangle";
+          image_quality = 75;
+          max_width = 600;
+          max_height = 900;
+          tab_size = 2;
+        };
+        opener = {
+          edit = [
+            { run = "nvim \"$@\""; block = true; for = "unix"; }
+          ];
+          open = [
+            { run = "open \"$@\""; for = "macos"; }
+          ];
+        };
+      };
+      keymap = {
+        manager.prepend_keymap = [
+          { on = [ "g" "h" ]; run = "cd ~"; desc = "Go to home"; }
+          { on = [ "g" "c" ]; run = "cd ~/Code"; desc = "Go to Code"; }
+          { on = [ "g" "d" ]; run = "cd ~/Downloads"; desc = "Go to Downloads"; }
+          { on = [ "g" "n" ]; run = "cd /etc/nix-darwin"; desc = "Go to nix-darwin"; }
+          { on = [ "<C-n>" ]; run = "create"; desc = "Create file/directory"; }
+        ];
       };
     };
 
@@ -86,6 +125,7 @@
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
+      config.whitelist.prefix = [ "/Users/ian/.superset" ];
     };
   };
 }
