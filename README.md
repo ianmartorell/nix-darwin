@@ -69,18 +69,35 @@ Homebrew cleanup is set to `uninstall` - unlisted packages get removed on rebuil
 - **Development tools**: Neovim, Zed, git with delta, lazygit
 - **Shell**: Zsh with vi-mode, starship prompt, eza, yazi
 
-## Customization
+## Forking This Repo
 
-1. Edit user variables in `flake.nix`:
+If you want to use this configuration as a starting point, you'll need to change:
+
+### Required Changes
+
+1. **User variables in `flake.nix`**:
    ```nix
-   username = "ian";
-   useremail = "ianmartorell@gmail.com";
-   hostname = "mbp";
+   username = "ian";           # Your macOS username
+   fullname = "Ian Martorell"; # Your full name (for git)
+   useremail = "ianmartorell@gmail.com";  # Your email (for git)
+   hostname = "mbp";           # Your machine's hostname
    ```
 
-2. Modify packages in `modules/apps.nix` (Homebrew) or `home/core.nix` (Nix)
+2. **Karabiner device IDs in `home/karabiner.nix`**:
+   - The `vendor_id` and `product_id` are specific to my keyboard
+   - Find yours in Karabiner-EventViewer.app → Devices tab
+   - Or remove the `devices` block to apply rules to all keyboards
 
-3. Adjust macOS defaults in `modules/defaults.nix`
+### Optional Changes
+
+3. **Work-specific git config in `home/git.nix`**:
+   - Remove or modify the `includes` block for work repos
+
+4. **Packages in `modules/apps.nix`** - Add/remove Homebrew casks and brews
+
+5. **CLI tools in `home/core.nix`** - Add/remove Nix packages
+
+6. **macOS defaults in `modules/defaults.nix`** - Adjust system preferences
 
 ## Documentation
 

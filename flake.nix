@@ -31,6 +31,7 @@
     ...
   }: let
     username = "ian";
+    fullname = "Ian Martorell";
     useremail = "ianmartorell@gmail.com";
     system = "aarch64-darwin";
     hostname = "mbp";
@@ -38,7 +39,7 @@
     specialArgs =
       inputs
       // {
-        inherit username useremail hostname;
+        inherit username fullname useremail hostname;
       };
   in {
     darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {

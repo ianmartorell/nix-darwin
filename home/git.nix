@@ -1,6 +1,7 @@
 {
   lib,
   username,
+  fullname,
   useremail,
   ...
 }: {
@@ -36,7 +37,7 @@
     enable = true;
     lfs.enable = true;
 
-    userName = "Ian Martorell";
+    userName = fullname;
     userEmail = useremail;
 
     includes = [

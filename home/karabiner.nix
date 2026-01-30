@@ -1,6 +1,15 @@
 { ... }:
 {
   # Karabiner-Elements configuration via Home Manager
+  #
+  # NOTE: The device identifiers below (vendor_id, product_id) are specific to
+  # a particular keyboard. To find your device IDs:
+  #   1. Open Karabiner-EventViewer.app
+  #   2. Go to the "Devices" tab
+  #   3. Find your keyboard and note the vendor_id and product_id
+  #
+  # You can also remove the devices block entirely to apply rules to all keyboards.
+  #
   xdg.configFile."karabiner/karabiner.json" = {
     text = builtins.toJSON {
       global = {
@@ -21,6 +30,8 @@
               identifiers = {
                 is_keyboard = true;
                 is_pointing_device = true;
+                # Device-specific IDs - change these for your keyboard
+                # or remove the devices block to apply to all keyboards
                 product_id = 721;
                 vendor_id = 13364;
               };
