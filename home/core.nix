@@ -160,8 +160,8 @@
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
         # Open panes in current directory
-        bind h split-window -h -c "#{pane_current_path}"
-        bind v split-window -v -c "#{pane_current_path}"
+        bind h split-window -v -c "#{pane_current_path}"
+        bind v split-window -h -c "#{pane_current_path}"
 
         # Start windows and panes at 1, not 0
         set -g base-index 1
