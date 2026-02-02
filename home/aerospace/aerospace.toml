@@ -33,10 +33,10 @@ outer.right =      6
 [mode.main.binding]
     # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
     alt-enter = '''exec-and-forget osascript -e '
-    tell application "iTerm"
-        create window with default profile
-        activate
-    end tell'
+    if application "iTerm" is running then
+        tell application "iTerm" to create window with default profile
+    end if
+    tell application "iTerm" to activate'
     '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout

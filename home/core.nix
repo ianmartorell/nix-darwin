@@ -127,5 +127,48 @@
       nix-direnv.enable = true;
       config.whitelist.prefix = [ "/Users/${username}/.superset" ];
     };
+
+    tmux = {
+      enable = true;
+      prefix = "C-a";
+      shell = "${pkgs.zsh}/bin/zsh";
+      terminal = "tmux-256color";
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        yank
+        vim-tmux-navigator
+        catppuccin
+      ];
+      extraConfig = ''
+        # Start shell as login shell to ensure all config is sourced
+        set -g default-command "${pkgs.zsh}/bin/zsh -l"
+
+        # Enable mouse support
+        set -g mouse on
+
+        # True color support
+        set-option -sa terminal-overrides ",xterm*:Tc"
+
+        # Switch to last window with prefix twice
+        bind-key C-a last-window
+
+        # set vi-mode
+        set-window-option -g mode-keys vi
+        # keybindings
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+        # Open panes in current directory
+        bind h split-window -h -c "#{pane_current_path}"
+        bind v split-window -v -c "#{pane_current_path}"
+
+        # Start windows and panes at 1, not 0
+        set -g base-index 1
+        set -g pane-base-index 1
+        set-window-option -g pane-base-index 1
+        set-option -g renumber-windows on
+      '';
+    };
   };
 }
