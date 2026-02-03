@@ -37,9 +37,6 @@
     enable = true;
     lfs.enable = true;
 
-    userName = fullname;
-    userEmail = useremail;
-
     includes = [
       {
         # use different email & name for work
@@ -48,7 +45,9 @@
       }
     ];
 
-    extraConfig = {
+    settings = {
+      user.name = fullname;
+      user.email = useremail;
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -58,12 +57,13 @@
     #   key = "xxx";
     #   signByDefault = true;
     # };
+  };
 
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side";
-      };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "side-by-side";
     };
   };
 }

@@ -2,17 +2,18 @@
 {
   programs.ssh = {
     enable = true;
-
-    # Global settings
-    controlMaster = "auto";
-    controlPath = "~/.ssh/sockets/%r@%h:%p";
-    controlPersist = "600";
+    enableDefaultConfig = false;
 
     # Host configurations
     matchBlocks = {
       "*" = {
         serverAliveInterval = 60;
         serverAliveCountMax = 3;
+        extraOptions = {
+          ControlMaster = "auto";
+          ControlPath = "~/.ssh/sockets/%r@%h:%p";
+          ControlPersist = "600";
+        };
       };
 
       # Example host configuration (template)

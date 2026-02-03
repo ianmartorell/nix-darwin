@@ -10,7 +10,7 @@
       ignoreSpace = true;
       share = true;
     };
-    initExtra = ''
+    initContent = ''
       export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:/opt/homebrew/bin:$PATH"
       export npm_config_prefix="$HOME/.npm-global"
       mkdir -p "$HOME/.npm-global"
