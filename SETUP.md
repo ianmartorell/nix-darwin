@@ -58,8 +58,7 @@ gh ssh-key add - --title "Machine Name" <<< "ssh-ed25519 AAAA..."
 
 Create the directory and clone:
 ```bash
-sudo mkdir -p /etc/nix-darwin
-sudo chown $(whoami):staff /etc/nix-darwin
+sudo mkdir /etc/nix-darwin
 ```
 
 Use Nix's git (no need to install Xcode Command Line Tools):
@@ -143,4 +142,4 @@ Install Homebrew first (Step 2) before running darwin-rebuild.
 Set up SSH key and add to GitHub (Step 3).
 
 ### Permission denied creating /etc/nix-darwin
-Create directory with sudo and chown to your user (Step 4).
+Create directory with `sudo mkdir /etc/nix-darwin` (Step 4).
