@@ -93,6 +93,7 @@
 
       # AI
       "claude"
+      "codex"
       "ollama-app"
       "comet"
 

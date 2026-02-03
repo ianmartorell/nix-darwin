@@ -12,7 +12,6 @@
     ripgrep
     jq
     yq-go
-    fzf
     gnused
     gawk
 
@@ -128,6 +127,20 @@
       config.whitelist.prefix = [ "/Users/${username}/.superset" ];
     };
 
+    # Smart cd that learns your most used directories
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [ "--cmd cd" ];
+    };
+
+    # Fuzzy finder with shell and tmux integration
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      tmux.enableShellIntegration = true;
+    };
+
     tmux = {
       enable = true;
       prefix = "C-a";
@@ -162,6 +175,13 @@
         # Open panes in current directory
         bind h split-window -v -c "#{pane_current_path}"
         bind v split-window -h -c "#{pane_current_path}"
+
+        # New windows in current directory
+        bind c new-window -c "#{pane_current_path}"
+
+        # Shift arrow to switch windows
+        bind -n S-Left previous-window
+        bind -n S-Right next-window
 
         # Start windows and panes at 1, not 0
         set -g base-index 1

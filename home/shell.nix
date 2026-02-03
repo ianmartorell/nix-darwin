@@ -3,15 +3,29 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    history = {
+      size = 5000;
+      save = 5000;
+      ignoreDups = true;
+      ignoreSpace = true;
+      share = true;
+    };
     initExtra = ''
       export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:/opt/homebrew/bin:$PATH"
       export npm_config_prefix="$HOME/.npm-global"
       mkdir -p "$HOME/.npm-global"
       mkdir -p "$HOME/.ssh/sockets"
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-      # Alt+Backspace to delete word (must be in zvm_after_init to work with vi-mode)
-      zvm_after_init_commands+=('bindkey "^[^?" backward-kill-word')
+      # Autosuggestions and keybindings must be in zvm_after_init to work with vi-mode
+      zvm_after_init_commands+=(
+        'source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+        'bindkey "^[^?" backward-kill-word'  # Alt+Backspace to delete word
+      )
+
+      # Case-insensitive completion
+      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
     '';
   };
 

@@ -32,12 +32,6 @@ nix-darwin can manage Homebrew packages, but Homebrew itself must be installed s
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-On Apple Silicon, add Homebrew to your PATH:
-```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
-
 ## Step 3: Set Up SSH Key for GitHub
 
 Generate an SSH key:
@@ -150,6 +144,3 @@ Set up SSH key and add to GitHub (Step 3).
 
 ### Permission denied creating /etc/nix-darwin
 Create directory with sudo and chown to your user (Step 4).
-
-### `brew: command not found` on Apple Silicon
-Add Homebrew to PATH - see Step 2.
