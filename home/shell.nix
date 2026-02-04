@@ -37,6 +37,22 @@
       if [[ $- == *i* ]]; then
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
       fi
+
+      # nix-darwin rebuild functions (runs locally if on target machine, otherwise SSHs)
+      rebuild-mini() {
+        if [[ $(hostname -s) == mini ]]; then
+          rebuild
+        else
+          ssh mini.local 'cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin'
+        fi
+      }
+      rebuild-mbp() {
+        if [[ $(hostname -s) == mbp ]]; then
+          rebuild
+        else
+          ssh mbp.local 'cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin'
+        fi
+      }
     '';
   };
 
@@ -45,9 +61,7 @@
     urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
     urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
 
-    # nix-darwin rebuild aliases (rebuild-* runs locally if on that machine, otherwise SSHs)
+    # nix-darwin rebuild alias
     rebuild = "cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin";
-    rebuild-mini = "if [[ $(hostname -s) == mini ]]; then cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin; else ssh mini.local 'cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin'; fi";
-    rebuild-mbp = "if [[ $(hostname -s) == mbp ]]; then cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin; else ssh mbp.local 'cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin'; fi";
   };
 }
