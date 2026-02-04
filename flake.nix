@@ -64,12 +64,40 @@
         homeModule = ./home;
       };
 
-      # Mac Mini - minimal server setup
-      mini = mkDarwinConfig {
+      # Mac Mini - minimal server setup with jarvis user for OpenClaw
+      mini = let
         hostname = "mini";
-        appsModule = ./modules/apps-mini.nix;
-        homeModule = ./home/mini.nix;
-      };
+        specialArgs = inputs // {
+          inherit username fullname useremail hostname;
+        };
+      in
+        darwin.lib.darwinSystem {
+          inherit system specialArgs;
+          modules = [
+            ./modules/nix-core.nix
+            ./modules/system.nix
+            ./modules/apps-mini.nix
+            ./modules/host-users.nix
+
+            # Jarvis user for running OpenClaw AI agent (isolated for security)
+            {
+              users.users.jarvis = {
+                home = "/Users/jarvis";
+                description = "Jarvis - OpenClaw AI Agent";
+              };
+            }
+
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "hm-backup";
+              home-manager.extraSpecialArgs = specialArgs;
+              home-manager.users.${username} = import ./home/mini.nix;
+              home-manager.users.jarvis = import ./home/jarvis.nix;
+            }
+          ];
+        };
     };
 
     # nix code formatter
