@@ -1,10 +1,5 @@
 { pkgs, ... }:
 {
-  # Enable screen sharing for remote access
-  system.activationScripts.postActivation.text = ''
-    launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist 2>/dev/null || true
-  '';
-
   # Minimal server packages for Mac Mini
   environment.systemPackages = with pkgs; [
     # Editors
