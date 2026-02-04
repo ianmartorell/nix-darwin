@@ -46,8 +46,8 @@
     urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
 
     # nix-darwin rebuild aliases (rebuild-* runs locally if on that machine, otherwise SSHs)
-    rebuild = "cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch --flake /etc/nix-darwin";
-    rebuild-mini = "if [[ $(hostname -s) == mini ]]; then cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch --flake /etc/nix-darwin; else ssh mini.local 'cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch --flake /etc/nix-darwin'; fi";
-    rebuild-mbp = "if [[ $(hostname -s) == mbp ]]; then cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch --flake /etc/nix-darwin; else ssh mbp.local 'cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch --flake /etc/nix-darwin'; fi";
+    rebuild = "cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin";
+    rebuild-mini = "if [[ $(hostname -s) == mini ]]; then cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin; else ssh mini.local 'cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin'; fi";
+    rebuild-mbp = "if [[ $(hostname -s) == mbp ]]; then cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin; else ssh mbp.local 'cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin'; fi";
   };
 }
