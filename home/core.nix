@@ -129,9 +129,10 @@
     };
 
     # Smart cd that learns your most used directories
+    # Note: zsh integration is manual in shell.nix to avoid breaking non-interactive shells
     zoxide = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = false;
       options = [ "--cmd cd" ];
     };
 

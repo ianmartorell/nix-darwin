@@ -28,6 +28,11 @@
 
       # Case-insensitive completion
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+      # Initialize zoxide only in interactive shells (avoids breaking non-interactive scripts)
+      if [[ $- == *i* ]]; then
+        eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
+      fi
     '';
   };
 
