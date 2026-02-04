@@ -22,6 +22,7 @@
       zvm_after_init() {
         source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
         ZSH_AUTOSUGGEST_STRATEGY=(history completion)  # Try history first, then completions
+        WORDCHARS=${WORDCHARS//-}            # Treat dashes as word boundaries
         bindkey "^Y" autosuggest-accept      # Ctrl+Y accepts suggestion
         bindkey "^[^?" backward-kill-word    # Alt+Backspace deletes word
 
