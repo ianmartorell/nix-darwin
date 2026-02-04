@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  # Enable screen sharing for remote access
+  system.screenSharing.enable = true;
+
   # Minimal server packages for Mac Mini
   environment.systemPackages = with pkgs; [
     # Editors
