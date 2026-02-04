@@ -19,20 +19,12 @@
       source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
       # Autosuggestions and keybindings must be in zvm_after_init to work with vi-mode
-      zvm_after_init_commands+=(
-        'source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
-        # Tab accepts autosuggestion if shown, otherwise does normal completion
-        'autosuggest-accept-or-complete() {
-          if [[ -n "$POSTDISPLAY" ]]; then
-            zle autosuggest-accept
-          else
-            zle expand-or-complete
-          fi
-        }
-        zle -N autosuggest-accept-or-complete
-        bindkey "^I" autosuggest-accept-or-complete'
-        'bindkey "^[^?" backward-kill-word'  # Alt+Backspace to delete word
-      )
+      zvm_after_init() {
+        source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        ZSH_AUTOSUGGEST_STRATEGY=(history completion)  # Try history first, then completions
+        bindkey "^Y" autosuggest-accept      # Ctrl+Y accepts suggestion
+        bindkey "^[^?" backward-kill-word    # Alt+Backspace deletes word
+      }
 
       # Case-insensitive completion
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
