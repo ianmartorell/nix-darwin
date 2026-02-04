@@ -24,6 +24,10 @@
         ZSH_AUTOSUGGEST_STRATEGY=(history completion)  # Try history first, then completions
         bindkey "^Y" autosuggest-accept      # Ctrl+Y accepts suggestion
         bindkey "^[^?" backward-kill-word    # Alt+Backspace deletes word
+
+        # Unbind Emacs-style cursor keys to free them for other tools (e.g., Claude Code)
+        bindkey -r "^B"  # backward-char (use left arrow or h)
+        bindkey -r "^F"  # forward-char (use right arrow or l)
       }
 
       # Case-insensitive completion
