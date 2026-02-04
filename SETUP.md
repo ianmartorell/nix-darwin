@@ -81,7 +81,7 @@ Start a new shell session after this completes.
 ## Step 6: Verify Installation
 
 ```bash
-darwin-rebuild switch
+sudo darwin-rebuild switch
 ```
 
 This should complete without errors. Check that your tools are available:
@@ -94,12 +94,12 @@ brew list
 
 To apply configuration changes:
 ```bash
-darwin-rebuild switch
+sudo darwin-rebuild switch
 ```
 
 To update and apply:
 ```bash
-cd /etc/nix-darwin && git pull && darwin-rebuild switch
+cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch
 ```
 
 ## Adding a New Host
