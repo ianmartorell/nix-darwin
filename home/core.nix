@@ -50,6 +50,7 @@
 
     # Productivity
     glow # markdown previewer
+    claude-code
 
     # Fun
     cowsay
