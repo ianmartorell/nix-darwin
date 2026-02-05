@@ -16,6 +16,14 @@
         };
       };
 
+      # Mac Mini via Tailscale - share host key with mini.local
+      "mini" = {
+        hostname = "mini";
+        extraOptions = {
+          HostKeyAlias = "mini.local";
+        };
+      };
+
       # Example host configuration (template)
       # "github.com" = {
       #   user = "git";
