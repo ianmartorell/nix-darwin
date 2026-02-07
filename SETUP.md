@@ -24,13 +24,15 @@ Verify it works:
 nix --version
 ```
 
-## Step 2: Install Homebrew
+## Step 2: Install Homebrew (Optional)
 
-nix-darwin can manage Homebrew packages, but Homebrew itself must be installed separately first:
+**For MacBook Pro (mbp):** Install system Homebrew for GUI apps and system-wide tools:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+
+**For Mac Mini (mini):** Skip this step! The mini uses per-user Homebrew installations that will be automatically set up by nix-darwin. Each user gets their own Homebrew at `~/.homebrew` to avoid permission conflicts.
 
 ## Step 3: Set Up SSH Key for GitHub
 
@@ -104,28 +106,47 @@ cd /etc/nix-darwin && git pull && sudo darwin-rebuild switch
 
 ## Adding a New Host
 
-1. Add a new configuration in `flake.nix`:
+1. **Create user config file** in `home/`:
+   - For a new machine: `home/{machine}-{user}.nix` (e.g., `home/laptop-ian.nix`)
+   - Import the modules you need (shell, core, git, etc.)
+   - Configure per-user settings (homebrew packages, etc.)
+
+2. **Create or reuse machine apps file** in `modules/`:
+   - For full desktop: `modules/{machine}-apps.nix` (like `mbp-apps.nix`)
+   - For minimal server: `modules/{machine}-apps.nix` (like `mini-apps.nix`)
+
+3. **Add configuration to `flake.nix`**:
 ```nix
 darwinConfigurations = {
   # ... existing configs ...
 
   newhostname = mkDarwinConfig {
     hostname = "newhostname";
-    appsModule = ./modules/apps.nix;      # or apps-mini.nix for minimal
-    homeModule = ./home;                   # or ./home/mini.nix for minimal
+    appsModule = ./modules/newhostname-apps.nix;
+    homeModule = ./home/newhostname-ian.nix;
   };
 };
 ```
 
-2. Commit and push to GitHub
-3. Follow Steps 1-5 on the new machine
+4. Commit and push to GitHub
+5. Follow Steps 1-5 on the new machine
+
+**For multi-user machines** (like mini), define additional users in the machine config and add their home-manager configs. See the `mini` configuration in `flake.nix` for an example.
 
 ## Available Configurations
 
-| Config | Description | Apps |
-|--------|-------------|------|
-| `mbp` | MacBook Pro - full desktop | All GUI apps, dev tools |
-| `mini` | Mac Mini - minimal server | CLI tools only, Tailscale |
+| Config | Description | Users | Homebrew Setup |
+|--------|-------------|-------|----------------|
+| `mbp` | MacBook Pro - full desktop | ian | System Homebrew at `/opt/homebrew` |
+| `mini` | Mac Mini - minimal server | ian, jarvis | Per-user Homebrew at `~/.homebrew` |
+
+**User configs:**
+- `home/mbp-ian.nix` - Ian's full desktop environment (mbp)
+- `home/mini-ian.nix` - Ian's minimal server setup (mini)
+- `home/mini-jarvis.nix` - Jarvis (OpenClaw AI agent) isolated config (mini)
+
+**Why per-user Homebrew on mini?**
+Multiple users need independent package management without permission conflicts. Each user gets their own Homebrew installation automatically.
 
 ## Troubleshooting
 
@@ -135,8 +156,8 @@ Use the native macOS package installer instead of the shell script. See Step 1.
 ### `darwin-rebuild: command not found` after first switch
 Start a new terminal session or run `exec zsh -l`.
 
-### Homebrew module error during activation
-Install Homebrew first (Step 2) before running darwin-rebuild.
+### Homebrew module error during activation (mbp only)
+Install system Homebrew first (Step 2) before running darwin-rebuild on mbp. The mini uses per-user Homebrew which is installed automatically.
 
 ### Git permission denied (publickey)
 Set up SSH key and add to GitHub (Step 3).

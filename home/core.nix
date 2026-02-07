@@ -164,6 +164,10 @@
         # True color support
         set-option -sa terminal-overrides ",xterm*:Tc"
 
+        # Enable extended keys (for Shift+Enter, Ctrl+Shift+*, etc.)
+        set -s extended-keys on
+        set -as terminal-features 'xterm*:extkeys'
+
         # Switch to last window with prefix twice
         bind-key C-a last-window
 

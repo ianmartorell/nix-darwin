@@ -12,32 +12,37 @@ Declarative macOS system configuration using [nix-darwin](https://github.com/LnL
 ### Apply Configuration
 
 ```bash
-darwin-rebuild switch
+sudo darwin-rebuild switch
 ```
 
 ### After Making Changes
 
-- Run `darwin-rebuild switch` after updating any `.nix` files
+- Run `sudo darwin-rebuild switch` after updating any `.nix` files
 - Run `aerospace reload-config` after updating `home/aerospace/aerospace.toml`
 
 ## Directory Structure
 
 ```
 .
-├── flake.nix              # Entry point, defines inputs and system config
+├── flake.nix              # Entry point, defines machines (mbp/mini)
 ├── flake.lock             # Locked dependency versions
 │
-├── modules/               # System-level configuration
+├── modules/               # System-level configuration (shared by all users)
+│   ├── nix-core.nix       # Nix daemon settings
 │   ├── system.nix         # Core system settings, timezone, shell
 │   ├── defaults.nix       # macOS system defaults (dock, finder, etc.)
 │   ├── fonts.nix          # Font packages
 │   ├── security.nix       # TouchID sudo, security settings
-│   ├── apps.nix           # Nix packages and Homebrew management
-│   ├── nix-core.nix       # Nix daemon settings
-│   └── host-users.nix     # Hostname and user configuration
+│   ├── host-users.nix     # Hostname and user configuration
+│   ├── mbp-apps.nix       # MacBook Pro: Nix packages + system Homebrew
+│   └── mini-apps.nix      # Mac Mini: Nix packages only (no system Homebrew)
 │
-└── home/                  # User configuration (Home Manager)
-    ├── default.nix        # Imports all home modules
+└── home/                  # Per-user configuration (Home Manager)
+    ├── mbp-ian.nix        # Ian's config on MacBook Pro
+    ├── mini-ian.nix       # Ian's config on Mac Mini
+    ├── mini-jarvis.nix    # Jarvis (OpenClaw AI) config on Mac Mini
+    │
+    ├── homebrew.nix       # Per-user Homebrew module (used by mini)
     ├── core.nix           # CLI tools (ripgrep, jq, fzf, etc.)
     ├── shell.nix          # Zsh configuration
     ├── git.nix            # Git config with delta
@@ -53,13 +58,19 @@ darwin-rebuild switch
 
 ## Package Management
 
-| Source | Use Case |
-|--------|----------|
-| **Nix packages** | Core CLI tools, fonts, reproducible builds |
-| **Homebrew brews** | Tools that work better via Homebrew on macOS |
-| **Homebrew casks** | GUI applications |
+| Source | Use Case | Machines |
+|--------|----------|----------|
+| **Nix packages** | Core CLI tools, fonts, reproducible builds | All |
+| **System Homebrew** | GUI apps and system-wide tools | mbp only |
+| **Per-user Homebrew** | User-specific packages at `~/.homebrew` | mini only |
 
-Homebrew cleanup is set to `uninstall` - unlisted packages get removed on rebuild.
+**MacBook Pro (mbp):** Uses system Homebrew at `/opt/homebrew` (single user).
+
+**Mac Mini (mini):** Each user has their own Homebrew installation to avoid permission conflicts:
+- Ian: `~ian/.homebrew`
+- Jarvis: `~jarvis/.homebrew`
+
+System Homebrew cleanup is set to `uninstall` on mbp - unlisted packages get removed on rebuild.
 
 ## Key Features
 
@@ -80,24 +91,34 @@ If you want to use this configuration as a starting point, you'll need to change
    username = "ian";           # Your macOS username
    fullname = "Ian Martorell"; # Your full name (for git)
    useremail = "ianmartorell@gmail.com";  # Your email (for git)
-   hostname = "mbp";           # Your machine's hostname
    ```
 
-2. **Karabiner device IDs in `home/karabiner.nix`**:
+2. **Machine configurations in `flake.nix`**:
+   - Adjust the `darwinConfigurations` for your machines (mbp/mini)
+   - Update hostname references in each machine config
+
+3. **User config files in `home/`**:
+   - Rename `mbp-ian.nix` to match your username and machine
+   - Update imports in `flake.nix` to reference your renamed files
+   - Remove `mini-jarvis.nix` if you don't need multiple users
+
+4. **Karabiner device IDs in `home/karabiner.nix`**:
    - The `vendor_id` and `product_id` are specific to my keyboard
    - Find yours in Karabiner-EventViewer.app → Devices tab
    - Or remove the `devices` block to apply rules to all keyboards
 
 ### Optional Changes
 
-3. **Work-specific git config in `home/git.nix`**:
+5. **Work-specific git config in `home/git.nix`**:
    - Remove or modify the `includes` block for work repos
 
-4. **Packages in `modules/apps.nix`** - Add/remove Homebrew casks and brews
+6. **Packages in `modules/mbp-apps.nix` or `modules/mini-apps.nix`** - Add/remove system packages
 
-5. **CLI tools in `home/core.nix`** - Add/remove Nix packages
+7. **Per-user Homebrew packages** in your user config files (e.g., `mini-ian.nix`)
 
-6. **macOS defaults in `modules/defaults.nix`** - Adjust system preferences
+8. **CLI tools in `home/core.nix`** - Add/remove Nix packages
+
+9. **macOS defaults in `modules/defaults.nix`** - Adjust system preferences
 
 ## Documentation
 

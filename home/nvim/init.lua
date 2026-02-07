@@ -483,6 +483,10 @@ require('lazy').setup({
               ['<C-k>'] = actions.move_selection_previous,
             },
           },
+          -- Disable treesitter highlighting in previews (compatibility fix)
+          preview = {
+            treesitter = false,
+          },
         },
         extensions = {
           ['ui-select'] = {

@@ -60,8 +60,8 @@
       # MacBook Pro - full desktop setup
       mbp = mkDarwinConfig {
         hostname = "mbp";
-        appsModule = ./modules/apps.nix;
-        homeModule = ./home;
+        appsModule = ./modules/mbp-apps.nix;
+        homeModule = ./home/mbp-ian.nix;
       };
 
       # Mac Mini - minimal server setup with jarvis user for OpenClaw
@@ -76,7 +76,7 @@
           modules = [
             ./modules/nix-core.nix
             ./modules/system.nix
-            ./modules/apps-mini.nix
+            ./modules/mini-apps.nix
             ./modules/host-users.nix
 
             # Jarvis user for running OpenClaw AI agent (isolated for security)
@@ -93,8 +93,8 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "hm-backup";
               home-manager.extraSpecialArgs = specialArgs;
-              home-manager.users.${username} = import ./home/mini.nix;
-              home-manager.users.jarvis = import ./home/jarvis.nix;
+              home-manager.users.${username} = import ./home/mini-ian.nix;
+              home-manager.users.jarvis = import ./home/mini-jarvis.nix;
             }
           ];
         };

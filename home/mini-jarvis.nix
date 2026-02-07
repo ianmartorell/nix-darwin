@@ -4,7 +4,17 @@
   # Minimal home config for jarvis (OpenClaw AI agent)
   imports = [
     ./shell.nix
+    ./core.nix
+    ./git.nix
+    ./homebrew.nix
   ];
+
+  # Per-user Homebrew installation
+  homebrew = {
+    enable = true;
+    taps = [];
+    packages = [];  # bird package URL is currently broken
+  };
 
   home = {
     username = "jarvis";
@@ -12,13 +22,7 @@
     stateVersion = "24.11";
 
     packages = with pkgs; [
-      # Node.js for OpenClaw
-      nodejs_22
-
-      # Basic utilities
-      ripgrep
-      jq
-      git
+      # All utilities provided by core.nix and git.nix
     ];
 
     # Add npm global bin to PATH for OpenClaw

@@ -4,13 +4,21 @@ This file provides guidance to AI coding assistants when working with code in th
 
 ## Overview
 
-This is a nix-darwin configuration repository for managing a macOS system declaratively using Nix. It uses nix-darwin for system configuration and Home Manager for user environment configuration, pinned to the 24.11 release.
+This is a nix-darwin configuration repository for managing multiple macOS machines declaratively using Nix. It supports two machines (MacBook Pro and Mac Mini) with different configurations and multiple users. Uses nix-darwin for system configuration and Home Manager for user environment configuration, pinned to the 24.11 release.
+
+**Machines:**
+- `mbp` - MacBook Pro (full desktop, single user: ian)
+- `mini` - Mac Mini (minimal server, two users: ian and jarvis)
+
+**Users:**
+- `ian` - Primary user on both machines
+- `jarvis` - OpenClaw AI agent (mini only, isolated for security)
 
 ## Commands
 
 **Apply configuration changes:**
 ```bash
-darwin-rebuild switch
+sudo darwin-rebuild switch
 ```
 
 **Reload AeroSpace config:**
@@ -28,32 +36,72 @@ alejandra .
 nix flake check
 ```
 
+## Documentation Guidelines
+
+**IMPORTANT:** After making changes to the nix-darwin configuration, always check if documentation needs updating:
+
+- **README.md** - Update if you:
+  - Add/remove/rename files in `modules/` or `home/`
+  - Change the package management strategy
+  - Modify the machine configurations
+  - Add new features or capabilities
+
+- **AGENTS.md** - Update if you:
+  - Change the architecture or module organization
+  - Add/remove machines or users
+  - Modify configuration patterns or conventions
+  - Add new commands or workflows
+  - Change the package management approach
+
+- **SETUP.md** - Update if you:
+  - Change the initial setup process
+  - Add/remove machines or configurations
+  - Modify prerequisites or installation steps
+  - Change how Homebrew is managed
+
+Always review all three documentation files after structural changes to ensure they accurately reflect the current state of the repository.
+
 ## After Making Changes
 
-- **Always** run `darwin-rebuild switch` after updating any nix configuration files
+- **Always** run `sudo darwin-rebuild switch` after updating any nix configuration files
 - **Always** run `aerospace reload-config` after updating `home/aerospace/aerospace.toml`
+- **Always** check if documentation (README.md, AGENTS.md, SETUP.md) needs updates
 
 ## Architecture
 
 ### Flake Structure
 
 The `flake.nix` defines:
-- User configuration variables: `username`, `useremail`, `system`, `hostname`
+- User configuration variables: `username`, `fullname`, `useremail`, `system`
+- Two machine configurations: `mbp` (MacBook Pro) and `mini` (Mac Mini)
 - Uses Determinate Systems Nix installer (hence `nix.enable = false` in nix-core.nix)
 - Formatter: alejandra
 
+**Machine configurations:**
+- `mbp`: Uses `modules/mbp-apps.nix` + `home/mbp-ian.nix`
+- `mini`: Uses `modules/mini-apps.nix` + `home/mini-ian.nix` + `home/mini-jarvis.nix`
+
 ### Module Organization
 
-**System modules (`modules/`):**
+**System modules (`modules/`) - Shared by all users on a machine:**
 - `nix-core.nix` - Nix daemon settings, unfree packages
-- `system.nix` - macOS system defaults (dock, finder, trackpad, keyboard, fonts)
-- `apps.nix` - System packages (nix) and Homebrew management (brews, casks)
+- `system.nix` - Core system settings (imports defaults, fonts, security)
+- `defaults.nix` - macOS system defaults (dock, finder, trackpad, keyboard)
+- `fonts.nix` - Font packages
+- `security.nix` - TouchID sudo, security settings
 - `host-users.nix` - Hostname and user account configuration
+- `mbp-apps.nix` - MacBook Pro: System packages + system Homebrew
+- `mini-apps.nix` - Mac Mini: System packages only (no system Homebrew)
 
-**Home modules (`home/`):**
-- `default.nix` - Imports all home modules, sets Home Manager state version
+**User config files (`home/`) - Machine-user naming convention:**
+- `mbp-ian.nix` - Ian's configuration on MacBook Pro
+- `mini-ian.nix` - Ian's configuration on Mac Mini
+- `mini-jarvis.nix` - Jarvis's configuration on Mac Mini
+
+**Shared component modules (`home/`) - Imported by user configs:**
+- `homebrew.nix` - Per-user Homebrew module (installs to `~/.homebrew`)
 - `core.nix` - CLI tools, neovim, eza, yazi, direnv
-- `shell.nix` - Zsh configuration, PATH setup, shell aliases
+- `shell.nix` - Zsh configuration, PATH setup, shell aliases, rebuild functions
 - `git.nix` - Git config with delta for diffs, conditional includes for work repos
 - `gh.nix` - GitHub CLI configuration
 - `ssh.nix` - SSH client configuration with control master
@@ -62,19 +110,42 @@ The `flake.nix` defines:
 - `aerospace.nix` - Window manager config (symlinks TOML file)
 - `aerospace/aerospace.toml` - AeroSpace tiling window manager configuration
 - `nvim.nix` - Neovim config (symlinks kickstart.nvim-based setup)
+- `zed.nix` - Zed editor settings
+- `mpv.nix` - mpv player config
 
 ### Package Management Strategy
 
-- **Nix packages**: Core dev tools, CLI utilities, fonts
-- **Homebrew brews**: Tools that work better via Homebrew on macOS (curl, wget, gh)
-- **Homebrew casks**: GUI applications
-- Homebrew cleanup is set to `uninstall` - unlisted packages get removed on rebuild
+**Nix packages** (all machines):
+- Core dev tools, CLI utilities, fonts
+- Defined in `modules/{machine}-apps.nix` and `home/core.nix`
+
+**System Homebrew** (mbp only):
+- Location: `/opt/homebrew`
+- Defined in: `modules/mbp-apps.nix`
+- Use for: GUI applications (casks) and system-wide tools (brews)
+- Cleanup set to `uninstall` - unlisted packages get removed on rebuild
+
+**Per-user Homebrew** (mini only):
+- Location: `~/.homebrew` (separate installation per user)
+- Defined in: `home/mini-{user}.nix` (e.g., `mini-ian.nix`, `mini-jarvis.nix`)
+- Use for: User-specific packages to avoid permission conflicts on multi-user systems
+- Module: `home/homebrew.nix` provides the per-user installation logic
+- Configured via: `homebrew.enable`, `homebrew.packages`, `homebrew.casks`, `homebrew.taps`
+
+**Why per-user on mini?**
+- Avoids permission conflicts between ian and jarvis
+- Each user can manage their own packages independently
+- System Homebrew at `/opt/homebrew` has been removed from mini
 
 ### Configuration Patterns
 
 - External config files (aerospace TOML, nvim lua) are symlinked via `xdg.configFile`
-- Shell aliases defined in `home/shell.nix` include git shortcuts (gs, gd, gc, etc.)
+- Shell aliases defined in `home/shell.nix` include:
+  - Git shortcuts (gs, gd, gc, etc.)
+  - `rebuild` - Pull latest config and rebuild on current machine
+  - `rebuild-mini` / `rebuild-mbp` - SSH rebuild functions for remote machines
 - Git uses conditional includes for work-specific config at `~/Code/rapidand/`
+- File naming convention: `{machine}-{purpose}.nix` or `{machine}-{user}.nix` for clarity
 
 ### AeroSpace Window Manager
 
@@ -123,9 +194,9 @@ These apps are configured to "Open at Login" via System Settings (cannot be mana
 
 To configure: System Settings → General → Login Items → add apps under "Open at Login"
 
-### Ollama Service (Homebrew Managed)
+### Ollama Service (mbp only, Homebrew Managed)
 
-Ollama runs as a Homebrew service with custom environment variables:
+On the MacBook Pro, Ollama runs as a Homebrew service with custom environment variables:
 - `OLLAMA_FLASH_ATTENTION=1` - Enable flash attention
 - `OLLAMA_KV_CACHE_TYPE=q8_0` - KV cache quantization
 
@@ -142,3 +213,5 @@ To modify environment variables, edit the plist directly or use:
 ```bash
 launchctl setenv OLLAMA_FLASH_ATTENTION 1
 ```
+
+**Note:** This is not configured on mini as it uses per-user Homebrew installations.

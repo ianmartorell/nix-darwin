@@ -10,7 +10,14 @@
     ./ssh.nix
     ./starship.nix
     ./nvim.nix
+    ./homebrew.nix
   ];
+
+  # Per-user Homebrew installation
+  homebrew = {
+    enable = true;
+    packages = [];  # Add packages as needed
+  };
 
   home = {
     username = username;
