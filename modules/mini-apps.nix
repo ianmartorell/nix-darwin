@@ -2,7 +2,7 @@
 {
   # Minimal server packages for Mac Mini
   # Note: This machine uses per-user Homebrew installations (see home/mini-*.nix)
-  # rather than system-level Homebrew to avoid permission conflicts between users.
+  # for most packages. System-level Homebrew is only used for shared services.
 
   environment.systemPackages = with pkgs; [
     # Editors
@@ -16,4 +16,23 @@
     nixfmt-rfc-style
   ];
   environment.variables.EDITOR = "nvim";
+
+  homebrew = {
+    enable = true;
+
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "uninstall";
+    };
+
+    masApps = {};
+    taps = [];
+    brews = [];
+
+    # Shared system services
+    casks = [
+      "tailscale-app"
+    ];
+  };
 }

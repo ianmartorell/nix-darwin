@@ -91,7 +91,7 @@ The `flake.nix` defines:
 - `security.nix` - TouchID sudo, security settings
 - `host-users.nix` - Hostname and user account configuration
 - `mbp-apps.nix` - MacBook Pro: System packages + system Homebrew
-- `mini-apps.nix` - Mac Mini: System packages only (no system Homebrew)
+- `mini-apps.nix` - Mac Mini: System packages + system Homebrew (shared services only)
 
 **User config files (`home/`) - Machine-user naming convention:**
 - `mbp-ian.nix` - Ian's configuration on MacBook Pro
@@ -125,6 +125,12 @@ The `flake.nix` defines:
 - Use for: GUI applications (casks) and system-wide tools (brews)
 - Cleanup set to `uninstall` - unlisted packages get removed on rebuild
 
+**System Homebrew** (mini):
+- Location: `/opt/homebrew`
+- Defined in: `modules/mini-apps.nix`
+- Use for: Shared system services only (e.g., tailscale)
+- Cleanup set to `uninstall` - unlisted packages get removed on rebuild
+
 **Per-user Homebrew** (mini only):
 - Location: `~/.homebrew` (separate installation per user)
 - Defined in: `home/mini-{user}.nix` (e.g., `mini-ian.nix`, `mini-jarvis.nix`)
@@ -132,10 +138,10 @@ The `flake.nix` defines:
 - Module: `home/homebrew.nix` provides the per-user installation logic
 - Configured via: `homebrew.enable`, `homebrew.packages`, `homebrew.casks`, `homebrew.taps`
 
-**Why per-user on mini?**
-- Avoids permission conflicts between ian and jarvis
+**Why both on mini?**
+- System Homebrew manages shared services (tailscale, etc.)
+- Per-user Homebrew avoids permission conflicts between ian and jarvis for user-specific packages
 - Each user can manage their own packages independently
-- System Homebrew at `/opt/homebrew` has been removed from mini
 
 ### Configuration Patterns
 
@@ -214,4 +220,4 @@ To modify environment variables, edit the plist directly or use:
 launchctl setenv OLLAMA_FLASH_ATTENTION 1
 ```
 
-**Note:** This is not configured on mini as it uses per-user Homebrew installations.
+**Note:** On mini, system Homebrew is used only for shared services (e.g., tailscale). User-specific packages should use per-user Homebrew installations.

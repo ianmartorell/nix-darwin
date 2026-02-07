@@ -32,7 +32,7 @@ nix --version
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-**For Mac Mini (mini):** Skip this step! The mini uses per-user Homebrew installations that will be automatically set up by nix-darwin. Each user gets their own Homebrew at `~/.homebrew` to avoid permission conflicts.
+**For Mac Mini (mini):** Install system Homebrew for shared services (e.g., tailscale). Per-user Homebrew installations will also be automatically set up by nix-darwin at `~/.homebrew` for user-specific packages.
 
 ## Step 3: Set Up SSH Key for GitHub
 
@@ -138,7 +138,7 @@ darwinConfigurations = {
 | Config | Description | Users | Homebrew Setup |
 |--------|-------------|-------|----------------|
 | `mbp` | MacBook Pro - full desktop | ian | System Homebrew at `/opt/homebrew` |
-| `mini` | Mac Mini - minimal server | ian, jarvis | Per-user Homebrew at `~/.homebrew` |
+| `mini` | Mac Mini - minimal server | ian, jarvis | System + per-user Homebrew |
 
 **User configs:**
 - `home/mbp-ian.nix` - Ian's full desktop environment (mbp)
@@ -156,8 +156,8 @@ Use the native macOS package installer instead of the shell script. See Step 1.
 ### `darwin-rebuild: command not found` after first switch
 Start a new terminal session or run `exec zsh -l`.
 
-### Homebrew module error during activation (mbp only)
-Install system Homebrew first (Step 2) before running darwin-rebuild on mbp. The mini uses per-user Homebrew which is installed automatically.
+### Homebrew module error during activation
+Install system Homebrew first (Step 2) before running darwin-rebuild. Per-user Homebrew installations on mini are also installed automatically.
 
 ### Git permission denied (publickey)
 Set up SSH key and add to GitHub (Step 3).

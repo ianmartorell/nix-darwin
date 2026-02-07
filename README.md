@@ -35,7 +35,7 @@ sudo darwin-rebuild switch
 │   ├── security.nix       # TouchID sudo, security settings
 │   ├── host-users.nix     # Hostname and user configuration
 │   ├── mbp-apps.nix       # MacBook Pro: Nix packages + system Homebrew
-│   └── mini-apps.nix      # Mac Mini: Nix packages only (no system Homebrew)
+│   └── mini-apps.nix      # Mac Mini: Nix packages + system Homebrew (shared services)
 │
 └── home/                  # Per-user configuration (Home Manager)
     ├── mbp-ian.nix        # Ian's config on MacBook Pro
@@ -66,11 +66,13 @@ sudo darwin-rebuild switch
 
 **MacBook Pro (mbp):** Uses system Homebrew at `/opt/homebrew` (single user).
 
-**Mac Mini (mini):** Each user has their own Homebrew installation to avoid permission conflicts:
-- Ian: `~ian/.homebrew`
-- Jarvis: `~jarvis/.homebrew`
+**Mac Mini (mini):** Uses both system and per-user Homebrew:
+- System Homebrew at `/opt/homebrew` for shared services (e.g., tailscale)
+- Per-user Homebrew to avoid permission conflicts:
+  - Ian: `~ian/.homebrew`
+  - Jarvis: `~jarvis/.homebrew`
 
-System Homebrew cleanup is set to `uninstall` on mbp - unlisted packages get removed on rebuild.
+System Homebrew cleanup is set to `uninstall` - unlisted packages get removed on rebuild.
 
 ## Key Features
 
