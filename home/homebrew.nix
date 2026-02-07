@@ -27,6 +27,17 @@ in
       default = [];
       description = "List of Homebrew taps to add";
     };
+
+    cleanup = lib.mkOption {
+      type = lib.types.enum [ "none" "uninstall" "zap" ];
+      default = "none";
+      description = ''
+        What to do with packages not listed in the configuration.
+        - "none": leave unlisted packages installed
+        - "uninstall": remove unlisted packages and casks
+        - "zap": remove unlisted casks with --zap (removes all associated files)
+      '';
+    };
   };
 
   config = lib.mkIf config.homebrew.enable {
@@ -79,6 +90,32 @@ in
           $DRY_RUN_CMD ${homebrewPrefix}/bin/brew install --cask ${cask}
         fi
       '') config.homebrew.casks}
+
+      ${lib.optionalString (config.homebrew.cleanup != "none") ''
+        # Cleanup: remove unlisted formulae
+        for pkg in $(${homebrewPrefix}/bin/brew list --formula -1); do
+          case "$pkg" in
+            ${lib.concatMapStringsSep "|" (pkg: ''"${pkg}"'') config.homebrew.packages}${lib.optionalString (config.homebrew.packages == []) '""'})
+              ;;
+            *)
+              echo "Removing unlisted formula: $pkg"
+              $DRY_RUN_CMD ${homebrewPrefix}/bin/brew uninstall --formula "$pkg"
+              ;;
+          esac
+        done
+
+        # Cleanup: remove unlisted casks
+        for cask in $(${homebrewPrefix}/bin/brew list --cask -1); do
+          case "$cask" in
+            ${lib.concatMapStringsSep "|" (cask: ''"${cask}"'') config.homebrew.casks}${lib.optionalString (config.homebrew.casks == []) '""'})
+              ;;
+            *)
+              echo "Removing unlisted cask: $cask"
+              $DRY_RUN_CMD ${homebrewPrefix}/bin/brew uninstall --cask ${lib.optionalString (config.homebrew.cleanup == "zap") "--zap"} "$cask"
+              ;;
+          esac
+        done
+      ''}
     '';
   };
 }

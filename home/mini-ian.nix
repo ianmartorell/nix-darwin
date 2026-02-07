@@ -16,7 +16,7 @@
   # Per-user Homebrew installation
   homebrew = {
     enable = true;
-    packages = [];  # Add packages as needed
+    packages = [ ]; # Add packages as needed
   };
 
   home = {

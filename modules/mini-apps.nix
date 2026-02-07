@@ -23,12 +23,12 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "none";
+      cleanup = "uninstall";
     };
 
-    masApps = {};
-    taps = [];
-    brews = [];
+    masApps = { };
+    taps = [ ];
+    brews = [ ];
 
     # Shared system services
     casks = [

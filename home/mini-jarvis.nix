@@ -12,8 +12,8 @@
   # Per-user Homebrew installation
   homebrew = {
     enable = true;
-    taps = [];
-    packages = [];  # bird package URL is currently broken
+    taps = [ ];
+    packages = [ ]; # bird package URL is currently broken
   };
 
   home = {
