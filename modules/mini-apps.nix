@@ -12,6 +12,9 @@
     git
     lazygit
 
+    # Development
+    bun
+
     # Nix
     nixfmt-rfc-style
   ];
