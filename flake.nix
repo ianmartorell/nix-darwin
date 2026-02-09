@@ -77,6 +77,7 @@
             ./modules/nix-core.nix
             ./modules/system.nix
             ./modules/mini-apps.nix
+            ./modules/mini-system.nix
             ./modules/host-users.nix
 
             # Jarvis user for running OpenClaw AI agent (isolated for security)
