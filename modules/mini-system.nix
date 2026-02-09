@@ -13,15 +13,7 @@
   '';
 
   # Allow jarvis user to run sudo without password for OpenClaw operations
-  security.sudo.extraRules = [
-    {
-      users = [ "jarvis" ];
-      commands = [
-        {
-          command = "ALL";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  security.sudo.extraConfig = ''
+    jarvis ALL=(ALL:ALL) NOPASSWD: ALL
+  '';
 }

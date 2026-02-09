@@ -95,7 +95,7 @@ in
         # Cleanup: remove unlisted formulae
         for pkg in $(${homebrewPrefix}/bin/brew list --formula -1); do
           case "$pkg" in
-            ${lib.concatMapStringsSep "|" (pkg: ''"${pkg}"'') config.homebrew.packages}${lib.optionalString (config.homebrew.packages == []) '""'})
+            ${if config.homebrew.packages == [] then ''__NOTHING_MATCHES__'' else lib.concatMapStringsSep "|" (pkg: ''"${pkg}"'') config.homebrew.packages})
               ;;
             *)
               echo "Removing unlisted formula: $pkg"
@@ -107,7 +107,7 @@ in
         # Cleanup: remove unlisted casks
         for cask in $(${homebrewPrefix}/bin/brew list --cask -1); do
           case "$cask" in
-            ${lib.concatMapStringsSep "|" (cask: ''"${cask}"'') config.homebrew.casks}${lib.optionalString (config.homebrew.casks == []) '""'})
+            ${if config.homebrew.casks == [] then ''__NOTHING_MATCHES__'' else lib.concatMapStringsSep "|" (cask: ''"${cask}"'') config.homebrew.casks})
               ;;
             *)
               echo "Removing unlisted cask: $cask"
