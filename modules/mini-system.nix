@@ -11,4 +11,17 @@
     sudo pmset sleep 0
     sudo pmset disksleep 0
   '';
+
+  # Allow jarvis user to run sudo without password for OpenClaw operations
+  security.sudo.extraRules = [
+    {
+      users = [ "jarvis" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 }
