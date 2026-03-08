@@ -7,6 +7,7 @@
     ./core.nix
     ./git.nix
     ./homebrew.nix
+    ./nvim.nix
   ];
 
   # Per-user Homebrew installation
