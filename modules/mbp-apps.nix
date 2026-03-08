@@ -26,7 +26,7 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "uninstall";
+      # cleanup = "uninstall";
     };
 
     # Applications to install from Mac App Store using mas.
