@@ -11,7 +11,9 @@
       share = true;
     };
     initContent = ''
-      export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:/opt/homebrew/bin:$PATH"
+      # Note: Per-user Homebrew (~/.homebrew/bin) is added via home.sessionPath in homebrew.nix
+      # and will come before /opt/homebrew/bin on mini systems
+      export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
       export npm_config_prefix="$HOME/.npm-global"
       mkdir -p "$HOME/.npm-global"
       mkdir -p "$HOME/.ssh/sockets"

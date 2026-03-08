@@ -20,22 +20,25 @@
   ];
   environment.variables.EDITOR = "nvim";
 
+  # System-level Homebrew for shared system services only
+  # Per-user packages are managed in home/mini-ian.nix and home/mini-jarvis.nix
   homebrew = {
     enable = true;
 
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      # cleanup = "uninstall";
     };
 
     masApps = { };
     taps = [ ];
-    brews = [ ];
+    brews = [
+      "wget"  # Available to all users, uses bottles at system location
+    ];
 
-    # Shared system services
+    # System-level services and apps that require elevated privileges
     casks = [
-      "tailscale-app"
+      "tailscale-app"  # VPN service with system extensions
     ];
   };
 }

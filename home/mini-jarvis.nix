@@ -13,8 +13,23 @@
   # Per-user Homebrew installation
   homebrew = {
     enable = true;
-    taps = [ ];
-    packages = [ ]; # bird package URL is currently broken
+    taps = [
+      "openhue/cli"
+      "steipete/tap"
+    ];
+    packages = [
+      # OpenHue smart home control
+      "openhue/cli/openhue-cli"
+      # Packages from steipete/tap
+      "steipete/tap/gogcli"
+      "steipete/tap/goplaces"
+      "steipete/tap/obsidian-cli"
+      "steipete/tap/peekaboo"
+      "steipete/tap/sag"
+      "steipete/tap/spogo"
+      "steipete/tap/summarize"
+      "steipete/tap/wacli"
+    ];
   };
 
   home = {

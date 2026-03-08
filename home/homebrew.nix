@@ -41,7 +41,8 @@ in
   };
 
   config = lib.mkIf config.homebrew.enable {
-    # Add user's Homebrew to PATH
+    # Add user's Homebrew to PATH (prepended to ensure it comes before system Homebrew)
+    # This is added via home.sessionPath which takes precedence over system PATH
     home.sessionPath = [
       "${homebrewPrefix}/bin"
       "${homebrewPrefix}/sbin"
@@ -53,6 +54,7 @@ in
       HOMEBREW_CELLAR = "${homebrewPrefix}/Cellar";
       HOMEBREW_REPOSITORY = homebrewPrefix;
       HOMEBREW_NO_AUTO_UPDATE = "1"; # Faster brew commands
+      HOMEBREW_CASK_OPTS = "--appdir=${config.home.homeDirectory}/Applications";
     };
 
     # Install Homebrew and packages on activation
@@ -69,6 +71,10 @@ in
       export HOMEBREW_PREFIX="${homebrewPrefix}"
       export HOMEBREW_CELLAR="${homebrewPrefix}/Cellar"
       export HOMEBREW_REPOSITORY="${homebrewPrefix}"
+      export HOMEBREW_CASK_OPTS="--appdir=${config.home.homeDirectory}/Applications"
+
+      # Ensure ~/Applications exists
+      $DRY_RUN_CMD mkdir -p "${config.home.homeDirectory}/Applications"
 
       # Add taps
       ${lib.concatMapStringsSep "\n" (tap: ''
