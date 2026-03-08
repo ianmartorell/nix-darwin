@@ -38,7 +38,8 @@
 
     # System-level services and apps that require elevated privileges
     casks = [
-      "tailscale-app"  # VPN service with system extensions
+      # Note: tailscale-app is already installed manually and should not be managed by Homebrew
+      # to avoid losing configuration. Leave it as a manual installation.
     ];
   };
 }

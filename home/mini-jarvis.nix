@@ -23,7 +23,6 @@
       # Packages from steipete/tap
       "steipete/tap/gogcli"
       "steipete/tap/goplaces"
-      "steipete/tap/obsidian-cli"
       "steipete/tap/peekaboo"
       "steipete/tap/sag"
       "steipete/tap/spogo"
