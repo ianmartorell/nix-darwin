@@ -820,6 +820,15 @@ require('lazy').setup({
           end,
         },
       }
+
+      -- Setup LSPs installed via Nix (not Mason)
+      vim.lsp.config.nixd = {
+        cmd = { 'nixd' },
+        filetypes = { 'nix' },
+        root_markers = { 'flake.nix', '.git' },
+        capabilities = capabilities,
+      }
+      vim.lsp.enable('nixd')
     end,
   },
 
