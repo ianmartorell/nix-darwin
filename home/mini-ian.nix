@@ -31,6 +31,12 @@
     username = username;
     homeDirectory = "/Users/${username}";
     stateVersion = "24.11";
+
+    sessionPath = [
+      "$HOME/bin"
+      "$HOME/.local/bin"
+      "$HOME/.npm-global/bin"
+    ];
   };
 
   programs.home-manager.enable = true;

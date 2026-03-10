@@ -4,15 +4,6 @@
     enable = true;
     enableCompletion = true;
 
-    # Set in .zshenv to run before everything else
-    envExtra = ''
-      # Ensure per-user Homebrew comes first in PATH (if it exists)
-      if [ -d "$HOME/.homebrew/bin" ]; then
-        path=("$HOME/.homebrew/bin" "$HOME/.homebrew/sbin" $path)
-        export PATH
-      fi
-    '';
-
     history = {
       size = 5000;
       save = 5000;
@@ -21,7 +12,6 @@
       share = true;
     };
     initContent = ''
-      export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
       export npm_config_prefix="$HOME/.npm-global"
       mkdir -p "$HOME/.npm-global"
       mkdir -p "$HOME/.ssh/sockets"
