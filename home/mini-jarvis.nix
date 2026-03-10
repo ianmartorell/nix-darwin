@@ -39,13 +39,13 @@
     packages = with pkgs; [
       # All utilities provided by core.nix and git.nix
     ];
-
-    # Add npm global bin to PATH for OpenClaw
-    sessionPath = [
-      "$HOME/bin",
-      "$HOME/.npm-global/bin"
-    ];
   };
+
+  # Add npm global bin to PATH for OpenClaw
+  home.sessionPath = [
+    "$HOME/bin"
+    "$HOME/.npm-global/bin"
+  ];
 
   programs.home-manager.enable = true;
 
