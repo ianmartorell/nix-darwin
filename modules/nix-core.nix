@@ -9,4 +9,10 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Allow insecure packages (EOL versions needed for dependencies)
+  nixpkgs.config.permittedInsecurePackages = [
+    "lima-full-1.2.2"  # Dependency of colima, EOL but needed
+    "lima-additional-guestagents-1.2.2"  # Dependency of colima, EOL but needed
+  ];
 }

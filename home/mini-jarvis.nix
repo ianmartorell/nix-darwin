@@ -42,6 +42,7 @@
 
     # Add npm global bin to PATH for OpenClaw
     sessionPath = [
+      "$HOME/bin",
       "$HOME/.npm-global/bin"
     ];
   };
