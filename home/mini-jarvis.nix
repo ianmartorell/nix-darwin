@@ -8,6 +8,7 @@
     ./git.nix
     ./homebrew.nix
     ./nvim.nix
+    ./openclaw-launchd.nix
   ];
 
   # Per-user Homebrew installation

@@ -63,6 +63,6 @@
     urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
 
     # nix-darwin rebuild alias
-    rebuild = "cd /etc/nix-darwin && git pull --rebase && sudo darwin-rebuild switch --flake /etc/nix-darwin";
+    rebuild = "cd /etc/nix-darwin && sudo darwin-rebuild switch --flake /etc/nix-darwin";
   };
 }
