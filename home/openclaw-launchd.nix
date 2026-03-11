@@ -11,7 +11,7 @@
 # IMPORTANT: After enabling this, never run `openclaw gateway install`
 # — it would overwrite the nix-managed symlink. Use `openclaw gateway restart`
 # or `launchctl kickstart -k gui/$(id -u)/ai.openclaw.gateway` instead.
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   homeDir = config.home.homeDirectory;
@@ -25,7 +25,8 @@ in
     config = {
       Label = "ai.openclaw.gateway";
       ProgramArguments = [
-        "/bin/bash" "-c"
+        "/bin/bash"
+        "-c"
         "source ${hmSessionVars} 2>/dev/null; touch ${homeDir}/.openclaw/.gateway-started; exec ${pkgs.nodejs_22}/bin/node ${openclawDir}/dist/index.js gateway --port 8080"
       ];
       EnvironmentVariables = {
@@ -55,7 +56,8 @@ in
     config = {
       Label = "ai.openclaw.boot-review";
       ProgramArguments = [
-        "/bin/bash" "-c"
+        "/bin/bash"
+        "-c"
         "source ${hmSessionVars} 2>/dev/null; exec /bin/bash ${homeDir}/.openclaw/hooks/on-boot-review.sh"
       ];
       EnvironmentVariables = {
