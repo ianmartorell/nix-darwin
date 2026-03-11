@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, config, lib, ... }:
 
 {
   # Minimal home config for Mac Mini (server/headless)
@@ -32,10 +32,10 @@
     homeDirectory = "/Users/${username}";
     stateVersion = "24.11";
 
-    sessionPath = [
-      "$HOME/bin"
-      "$HOME/.local/bin"
-      "$HOME/.npm-global/bin"
+    sessionPath = lib.mkBefore [
+      "${config.home.homeDirectory}/bin"
+      "${config.home.homeDirectory}/.local/bin"
+      "${config.home.homeDirectory}/.npm-global/bin"
     ];
   };
 

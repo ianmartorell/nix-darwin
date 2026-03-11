@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   # Minimal home config for jarvis (OpenClaw AI agent)
@@ -42,9 +42,9 @@
   };
 
   # Add npm global bin to PATH for OpenClaw
-  home.sessionPath = [
-    "$HOME/bin"
-    "$HOME/.npm-global/bin"
+  home.sessionPath = lib.mkBefore [
+    "${config.home.homeDirectory}/bin"
+    "${config.home.homeDirectory}/.npm-global/bin"
   ];
 
   programs.home-manager.enable = true;

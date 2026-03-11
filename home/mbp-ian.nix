@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, config, lib, ... }:
 
 {
   # import sub modules
@@ -22,10 +22,10 @@
     username = username;
     homeDirectory = "/Users/${username}";
 
-    sessionPath = [
-      "$HOME/bin"
-      "$HOME/.local/bin"
-      "$HOME/.npm-global/bin"
+    sessionPath = lib.mkBefore [
+      "${config.home.homeDirectory}/bin"
+      "${config.home.homeDirectory}/.local/bin"
+      "${config.home.homeDirectory}/.npm-global/bin"
     ];
 
     # This value determines the Home Manager release that your
