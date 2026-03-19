@@ -26,6 +26,8 @@
       "${config.home.homeDirectory}/bin"
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.npm-global/bin"
+      "/opt/homebrew/bin"
+      "/opt/homebrew/sbin"
     ];
 
     # This value determines the Home Manager release that your

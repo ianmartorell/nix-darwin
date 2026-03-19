@@ -51,7 +51,6 @@
       # Development
       "gh" # github cli
       "flyctl" # fly.io cli
-      "codex"
 
       # Hardware
       "litra" # logitech litra light control
