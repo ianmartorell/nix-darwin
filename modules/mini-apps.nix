@@ -15,6 +15,9 @@
     # Development
     bun
 
+    # Google Workspace admin
+    gam
+
     # Nix
     nixfmt-rfc-style
   ];
