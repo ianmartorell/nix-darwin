@@ -1,23 +1,15 @@
 # OpenClaw Gateway + Boot Review launchd agents
-# Manages the gateway daemon and post-boot catch-up review.
 #
-# Replaces manually-managed plist files:
-# - ~/Library/LaunchAgents/ai.openclaw.gateway.plist
-# - ~/Library/LaunchAgents/ai.openclaw.boot-review.plist
-#
-# PATH is sourced from hm-session-vars.sh at launch, so nix-darwin
-# PATH changes propagate automatically without touching plists.
-#
-# IMPORTANT: After enabling this, never run `openclaw gateway install`
-# — it would overwrite the nix-managed symlink. Use `openclaw gateway restart`
-# or `launchctl kickstart -k gui/$(id -u)/ai.openclaw.gateway` instead.
-{ config, pkgs, ... }:
+# Note: OpenClaw bootstraps its own PATH at startup (path-env.ts),
+# ignoring EnvironmentVariables.PATH. User dirs like ~/bin are included
+# via a local patch to path-env.ts. The PATH here is a fallback for
+# any non-OpenClaw child processes.
+{ config, lib, pkgs, ... }:
 
 let
   homeDir = config.home.homeDirectory;
   openclawDir = "${homeDir}/openclaw";
   logsDir = "${homeDir}/.openclaw/logs";
-  hmSessionVars = "/etc/profiles/per-user/${config.home.username}/etc/profile.d/hm-session-vars.sh";
 in
 {
   launchd.agents.openclaw-gateway = {
@@ -25,12 +17,22 @@ in
     config = {
       Label = "ai.openclaw.gateway";
       ProgramArguments = [
-        "/bin/bash"
-        "-c"
-        "source ${hmSessionVars} 2>/dev/null; touch ${homeDir}/.openclaw/.gateway-started; exec ${pkgs.nodejs_22}/bin/node ${openclawDir}/dist/index.js gateway --port 8080"
+        "/bin/bash" "-c"
+        "touch ${homeDir}/.openclaw/.gateway-started; exec ${pkgs.nodejs_22}/bin/node ${openclawDir}/dist/index.js gateway --port 8080"
       ];
       EnvironmentVariables = {
         HOME = homeDir;
+        PATH = builtins.concatStringsSep ":" [
+          "${homeDir}/bin"
+          "${homeDir}/.npm-global/bin"
+          "${homeDir}/.homebrew/bin"
+          "${homeDir}/.homebrew/sbin"
+          "/usr/local/bin"
+          "/usr/bin"
+          "/bin"
+          "/usr/sbin"
+          "/sbin"
+        ];
         NODE_EXTRA_CA_CERTS = "/etc/ssl/cert.pem";
         NODE_USE_SYSTEM_CA = "1";
         OPENCLAW_GATEWAY_PORT = "8080";
@@ -57,11 +59,18 @@ in
       Label = "ai.openclaw.boot-review";
       ProgramArguments = [
         "/bin/bash"
-        "-c"
-        "source ${hmSessionVars} 2>/dev/null; exec /bin/bash ${homeDir}/.openclaw/hooks/on-boot-review.sh"
+        "${homeDir}/.openclaw/hooks/on-boot-review.sh"
       ];
       EnvironmentVariables = {
         HOME = homeDir;
+        PATH = builtins.concatStringsSep ":" [
+          "${homeDir}/bin"
+          "${homeDir}/.npm-global/bin"
+          "${homeDir}/.homebrew/bin"
+          "/usr/local/bin"
+          "/usr/bin"
+          "/bin"
+        ];
       };
       RunAtLoad = false;
       WatchPaths = [
