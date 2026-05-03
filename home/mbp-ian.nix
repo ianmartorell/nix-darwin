@@ -12,7 +12,6 @@
     ./karabiner.nix
     ./aerospace.nix
     ./nvim.nix
-    ./zed.nix
     ./mpv.nix
   ];
 
