@@ -17,6 +17,9 @@
 
     # Nix
     nixfmt-rfc-style
+
+    # Password Management
+    bitwarden-cli
   ];
   environment.variables.EDITOR = "nvim";
 
@@ -51,6 +54,8 @@
       # Development
       "gh" # github cli
       "flyctl" # fly.io cli
+      "docker" # docker cli
+      "colima" # container runtime for macOS
 
       # Hardware
       "litra" # logitech litra light control
@@ -88,7 +93,7 @@
       "tableplus"
       "superset"
       "insomnia"
-      "linear-linear"
+      "linear"
 
       # AI
       "claude"
