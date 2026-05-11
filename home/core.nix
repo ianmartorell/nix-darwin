@@ -168,6 +168,9 @@
         set -s extended-keys on
         set -as terminal-features 'xterm*:extkeys'
 
+        # Allow programs to pass escape sequences through tmux (e.g. images, OSC 52)
+        set -g allow-passthrough on
+
         # Switch to last window with prefix twice
         bind-key C-a last-window
 
