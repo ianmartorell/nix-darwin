@@ -33,9 +33,11 @@
       appsModule ? ./modules/apps.nix,
       homeModule ? ./home,
     }: let
-      specialArgs = inputs // {
-        inherit username fullname useremail hostname;
-      };
+      specialArgs =
+        inputs
+        // {
+          inherit username fullname useremail hostname;
+        };
     in
       darwin.lib.darwinSystem {
         inherit system specialArgs;
@@ -67,9 +69,11 @@
       # Mac Mini - minimal server setup with jarvis user for OpenClaw
       mini = let
         hostname = "mini";
-        specialArgs = inputs // {
-          inherit username fullname useremail hostname;
-        };
+        specialArgs =
+          inputs
+          // {
+            inherit username fullname useremail hostname;
+          };
       in
         darwin.lib.darwinSystem {
           inherit system specialArgs;

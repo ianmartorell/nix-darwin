@@ -1,5 +1,4 @@
-{ ... }:
-
+{...}:
 ###################################################################################
 #
 #  macOS System Defaults
@@ -111,15 +110,15 @@
       "com.apple.ImageCapture".disableHotPlug = true;
       "com.apple.symbolichotkeys" = {
         AppleSymbolicHotKeys = {
-          "60" = { enabled = false; };
+          "60" = {enabled = false;};
           "61" = {
             enabled = true;
             value = {
-              parameters = [ 49 262144 ];
+              parameters = [49 262144];
               type = "standard";
             };
           };
-          "64" = { enabled = false; };
+          "64" = {enabled = false;};
         };
       };
       "com.apple.print.PrintingPrefs" = {

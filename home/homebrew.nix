@@ -1,12 +1,14 @@
 # Per-user Homebrew installation via home-manager
 # Each user gets their own Homebrew at ~/.homebrew
 # This avoids permission conflicts on multi-user systems
-{ config, lib, pkgs, ... }:
-
-let
-  homebrewPrefix = "${config.home.homeDirectory}/.homebrew";
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  homebrewPrefix = "${config.home.homeDirectory}/.homebrew";
+in {
   options.homebrew = {
     enable = lib.mkEnableOption "per-user Homebrew installation";
 
@@ -29,7 +31,7 @@ in
     };
 
     cleanup = lib.mkOption {
-      type = lib.types.enum [ "none" "uninstall" "zap" ];
+      type = lib.types.enum ["none" "uninstall" "zap"];
       default = "none";
       description = ''
         What to do with packages not listed in the configuration.
@@ -58,7 +60,7 @@ in
     };
 
     # Install Homebrew and packages on activation
-    home.activation.homebrew = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    home.activation.homebrew = lib.hm.dag.entryAfter ["writeBoundary"] ''
       # Install Homebrew if not present
       if [ ! -x "${homebrewPrefix}/bin/brew" ]; then
         echo "Installing Homebrew to ${homebrewPrefix}..."
@@ -78,30 +80,37 @@ in
 
       # Add taps
       ${lib.concatMapStringsSep "\n" (tap: ''
-        if ! ${homebrewPrefix}/bin/brew tap | grep -q "^${tap}$"; then
-          $DRY_RUN_CMD ${homebrewPrefix}/bin/brew tap ${tap}
-        fi
-      '') config.homebrew.taps}
+          if ! ${homebrewPrefix}/bin/brew tap | grep -q "^${tap}$"; then
+            $DRY_RUN_CMD ${homebrewPrefix}/bin/brew tap ${tap}
+          fi
+        '')
+        config.homebrew.taps}
 
       # Install formulae
       ${lib.concatMapStringsSep "\n" (pkg: ''
-        if ! ${homebrewPrefix}/bin/brew list --formula | grep -q "^${pkg}$"; then
-          $DRY_RUN_CMD ${homebrewPrefix}/bin/brew install ${pkg}
-        fi
-      '') config.homebrew.packages}
+          if ! ${homebrewPrefix}/bin/brew list --formula | grep -q "^${pkg}$"; then
+            $DRY_RUN_CMD ${homebrewPrefix}/bin/brew install ${pkg}
+          fi
+        '')
+        config.homebrew.packages}
 
       # Install casks
       ${lib.concatMapStringsSep "\n" (cask: ''
-        if ! ${homebrewPrefix}/bin/brew list --cask | grep -q "^${cask}$"; then
-          $DRY_RUN_CMD ${homebrewPrefix}/bin/brew install --cask ${cask}
-        fi
-      '') config.homebrew.casks}
+          if ! ${homebrewPrefix}/bin/brew list --cask | grep -q "^${cask}$"; then
+            $DRY_RUN_CMD ${homebrewPrefix}/bin/brew install --cask ${cask}
+          fi
+        '')
+        config.homebrew.casks}
 
       ${lib.optionalString (config.homebrew.cleanup != "none") ''
         # Cleanup: remove unlisted formulae
         for pkg in $(${homebrewPrefix}/bin/brew list --formula -1); do
           case "$pkg" in
-            ${if config.homebrew.packages == [] then ''__NOTHING_MATCHES__'' else lib.concatMapStringsSep "|" (pkg: ''"${pkg}"'') config.homebrew.packages})
+            ${
+          if config.homebrew.packages == []
+          then ''__NOTHING_MATCHES__''
+          else lib.concatMapStringsSep "|" (pkg: ''"${pkg}"'') config.homebrew.packages
+        })
               ;;
             *)
               echo "Removing unlisted formula: $pkg"
@@ -113,7 +122,11 @@ in
         # Cleanup: remove unlisted casks
         for cask in $(${homebrewPrefix}/bin/brew list --cask -1); do
           case "$cask" in
-            ${if config.homebrew.casks == [] then ''__NOTHING_MATCHES__'' else lib.concatMapStringsSep "|" (cask: ''"${cask}"'') config.homebrew.casks})
+            ${
+          if config.homebrew.casks == []
+          then ''__NOTHING_MATCHES__''
+          else lib.concatMapStringsSep "|" (cask: ''"${cask}"'') config.homebrew.casks
+        })
               ;;
             *)
               echo "Removing unlisted cask: $cask"

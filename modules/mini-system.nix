@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # Mac Mini specific system configuration
   # This module contains settings specific to the mini server setup
 

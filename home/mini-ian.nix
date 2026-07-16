@@ -1,6 +1,9 @@
-{ username, config, lib, ... }:
-
 {
+  username,
+  config,
+  lib,
+  ...
+}: {
   # Minimal home config for Mac Mini (server/headless)
   imports = [
     ./shell.nix

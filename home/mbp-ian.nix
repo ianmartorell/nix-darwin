@@ -1,6 +1,9 @@
-{ username, config, lib, ... }:
-
 {
+  username,
+  config,
+  lib,
+  ...
+}: {
   # import sub modules
   imports = [
     ./shell.nix

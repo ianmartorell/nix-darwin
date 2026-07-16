@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   # Karabiner-Elements configuration via Home Manager
   #
   # NOTE: The device identifiers below (vendor_id, product_id) are specific to
@@ -46,11 +45,11 @@
           simple_modifications = [
             {
               from.key_code = "caps_lock";
-              to = [{ key_code = "escape"; }];
+              to = [{key_code = "escape";}];
             }
             {
               from.key_code = "grave_accent_and_tilde";
-              to = [{ key_code = "non_us_backslash"; }];
+              to = [{key_code = "non_us_backslash";}];
             }
           ];
           virtual_hid_keyboard = {

@@ -1,6 +1,8 @@
-{ pkgs, username, ... }:
-
 {
+  pkgs,
+  username,
+  ...
+}: {
   imports = [
     ./defaults.nix
     ./fonts.nix
@@ -21,7 +23,7 @@
 
   # Zsh as default shell
   programs.zsh.enable = true;
-  environment.shells = [ pkgs.zsh ];
+  environment.shells = [pkgs.zsh];
 
   # Timezone
   time.timeZone = "Europe/Madrid";

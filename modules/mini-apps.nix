@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Minimal server packages for Mac Mini
   # Note: This machine uses per-user Homebrew installations (see home/mini-*.nix)
   # for most packages. System-level Homebrew is only used for shared services.
@@ -33,10 +32,10 @@
       upgrade = true;
     };
 
-    masApps = { };
-    taps = [ ];
+    masApps = {};
+    taps = [];
     brews = [
-      "wget"  # Available to all users, uses bottles at system location
+      "wget" # Available to all users, uses bottles at system location
     ];
 
     # System-level services and apps that require elevated privileges

@@ -1,6 +1,9 @@
-{ pkgs, config, lib, ... }:
-
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   # Minimal home config for jarvis (OpenClaw AI agent)
   imports = [
     ./shell.nix

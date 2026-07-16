@@ -1,5 +1,8 @@
-{ pkgs, username, ... }:
 {
+  pkgs,
+  username,
+  ...
+}: {
   home.packages = with pkgs; [
     # Archives
     zip
@@ -95,20 +98,47 @@
         };
         opener = {
           edit = [
-            { run = "nvim \"$@\""; block = true; for = "unix"; }
+            {
+              run = "nvim \"$@\"";
+              block = true;
+              for = "unix";
+            }
           ];
           open = [
-            { run = "open \"$@\""; for = "macos"; }
+            {
+              run = "open \"$@\"";
+              for = "macos";
+            }
           ];
         };
       };
       keymap = {
         manager.prepend_keymap = [
-          { on = [ "g" "h" ]; run = "cd ~"; desc = "Go to home"; }
-          { on = [ "g" "c" ]; run = "cd ~/Code"; desc = "Go to Code"; }
-          { on = [ "g" "d" ]; run = "cd ~/Downloads"; desc = "Go to Downloads"; }
-          { on = [ "g" "n" ]; run = "cd /etc/nix-darwin"; desc = "Go to nix-darwin"; }
-          { on = [ "<C-n>" ]; run = "create"; desc = "Create file/directory"; }
+          {
+            on = ["g" "h"];
+            run = "cd ~";
+            desc = "Go to home";
+          }
+          {
+            on = ["g" "c"];
+            run = "cd ~/Code";
+            desc = "Go to Code";
+          }
+          {
+            on = ["g" "d"];
+            run = "cd ~/Downloads";
+            desc = "Go to Downloads";
+          }
+          {
+            on = ["g" "n"];
+            run = "cd /etc/nix-darwin";
+            desc = "Go to nix-darwin";
+          }
+          {
+            on = ["<C-n>"];
+            run = "create";
+            desc = "Create file/directory";
+          }
         ];
       };
     };
@@ -124,7 +154,7 @@
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
-      config.whitelist.prefix = [ "/Users/${username}/.superset" ];
+      config.whitelist.prefix = ["/Users/${username}/.superset"];
     };
 
     # Smart cd that learns your most used directories
@@ -132,7 +162,7 @@
     zoxide = {
       enable = true;
       enableZshIntegration = false;
-      options = [ "--cmd cd" ];
+      options = ["--cmd cd"];
     };
 
     # Fuzzy finder with shell and tmux integration
