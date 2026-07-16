@@ -24,17 +24,16 @@
     nixd
     nil
 
-    # Node.js
+    # Node.js (using Homebrew node@24 for OpenClaw SQLite compatibility)
     deno
     node2nix
-    nodejs_22
 
     # Linting
     markdownlint-cli
 
     # Containers
     colima
-    docker
+    docker_29
 
     # GNU Utilities
     file
@@ -50,7 +49,7 @@
 
     # Productivity
     glow # markdown previewer
-    claude-code
+    # claude-code installed via npm globally
 
     # Fun
     cowsay

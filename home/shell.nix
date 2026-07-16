@@ -12,6 +12,8 @@
       share = true;
     };
     initContent = ''
+      # Homebrew Node 24 (has patched SQLite for OpenClaw)
+      export PATH="$HOME/.homebrew/opt/node@24/bin:$PATH"
       export npm_config_prefix="$HOME/.npm-global"
       mkdir -p "$HOME/.npm-global"
       mkdir -p "$HOME/.ssh/sockets"

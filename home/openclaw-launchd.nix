@@ -12,13 +12,14 @@ let
   logsDir = "${homeDir}/.openclaw/logs";
 in
 {
+  # Gateway service is managed by `openclaw gateway install`, not nix-darwin
   launchd.agents.openclaw-gateway = {
-    enable = true;
+    enable = false;
     config = {
       Label = "ai.openclaw.gateway";
       ProgramArguments = [
         "/bin/bash" "-c"
-        "touch ${homeDir}/.openclaw/.gateway-started; exec ${pkgs.nodejs_22}/bin/node ${openclawDir}/dist/index.js gateway --port 8080"
+        "touch ${homeDir}/.openclaw/.gateway-started; exec ${homeDir}/.homebrew/opt/node@24/bin/node ${openclawDir}/dist/index.js gateway --port 8080"
       ];
       EnvironmentVariables = {
         HOME = homeDir;

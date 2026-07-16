@@ -8,7 +8,6 @@
     ./git.nix
     ./homebrew.nix
     ./nvim.nix
-    ./openclaw-launchd.nix
   ];
 
   # Per-user Homebrew installation
@@ -44,6 +43,7 @@
 
   # Add npm global bin to PATH for OpenClaw
   home.sessionPath = lib.mkBefore [
+    "${config.home.homeDirectory}/.local/bin"
     "${config.home.homeDirectory}/bin"
     "${config.home.homeDirectory}/.npm-global/bin"
   ];
