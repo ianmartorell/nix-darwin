@@ -38,6 +38,9 @@
     colima
     docker_29
 
+    # Databases
+    postgresql # provides psql client
+
     # GNU Utilities
     file
     which
