@@ -34,7 +34,7 @@
     # You need to install all these Apps manually first so that your apple account have records for them.
     # otherwise Apple Store will refuse to install them.
     # For details, see https://github.com/mas-cli/mas
-    masApps = {};
+    masApps = { };
 
     taps = [
       "timrogers/tap"
@@ -96,8 +96,6 @@
       # AI
       "claude"
       "codex"
-      "ollama-app"
-      "comet"
 
       # Communication
       "slack"
