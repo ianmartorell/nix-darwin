@@ -19,18 +19,21 @@
     taps = [
       "openhue/cli"
       "steipete/tap"
+      "openclaw/tap"
     ];
     packages = [
       # OpenHue smart home control
       "openhue/cli/openhue-cli"
+      # OpenClaw CLIs (migrated from steipete/tap to openclaw/tap)
+      "openclaw/tap/gogcli"
+      "openclaw/tap/goplaces"
+      "openclaw/tap/wacli"
       # Packages from steipete/tap
-      "steipete/tap/gogcli"
-      "steipete/tap/goplaces"
       "steipete/tap/peekaboo"
       "steipete/tap/sag"
       "steipete/tap/spogo"
-      "steipete/tap/summarize"
-      "steipete/tap/wacli"
+      # summarize migrated to homebrew/core
+      "summarize"
     ];
   };
 
