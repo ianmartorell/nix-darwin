@@ -180,11 +180,14 @@
       prefix = "C-a";
       shell = "${pkgs.zsh}/bin/zsh";
       terminal = "tmux-256color";
+      # NOTE: catppuccin is intentionally NOT here. It (and tmux-cpu/tmux-battery)
+      # are loaded manually at the end of extraConfig, because Home Manager
+      # sources `plugins` BEFORE extraConfig and the theme needs its options set
+      # first / its status modules wired after. See the bottom of extraConfig.
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
         vim-tmux-navigator
-        catppuccin
       ];
       extraConfig = ''
         # Start shell as login shell to ensure all config is sourced
@@ -229,6 +232,37 @@
         set -g pane-base-index 1
         set-window-option -g pane-base-index 1
         set-option -g renumber-windows on
+
+        # --- Catppuccin theme (loaded by hand, not via `plugins`) ---
+        # Catppuccin v2 bakes its window/status formats at load time from the
+        # @catppuccin_* options, and tmux-cpu / tmux-battery must rewrite
+        # `status-right` AFTER it is set. Home Manager sources `plugins` before
+        # this block, so we can't rely on that ordering — do it explicitly:
+        #   1. set options  2. run catppuccin  3. set status-right  4. run cpu/battery
+        set -g @catppuccin_flavor "mocha"
+        set -g @catppuccin_window_status_style "rounded"
+
+        # Window tab label: activity glyph + first 3 words of the pane title.
+        # Claude Code sets the pane title (#T) to a long task summary via an OSC
+        # escape; this keeps the first 4 space-separated tokens (glyph + 3 words),
+        # trimming "✳ Add reject button for validated invoices…" to
+        # "✳ Add reject button". Titles with fewer tokens are left unchanged.
+        set -g @catppuccin_window_text " #{s|^([^ ]* [^ ]* [^ ]* [^ ]*) .*|\1|:pane_title}"
+        set -g @catppuccin_window_current_text " #{s|^([^ ]* [^ ]* [^ ]* [^ ]*) .*|\1|:pane_title}"
+
+        run-shell ${pkgs.tmuxPlugins.catppuccin}/share/tmux-plugins/catppuccin/catppuccin.tmux
+
+        # Right status bar (minimal): CPU% + session.
+        # cpu uses -F so its module text (carrying the #{cpu_percentage}
+        # placeholder) is expanded into status-right, which tmux-cpu then
+        # rewrites into a #(script) call.
+        set -g  status-right-length 100
+        set -g  status-left-length 100
+        set -g  status-left ""
+        set -gF status-right "#{E:@catppuccin_status_cpu}"
+        set -ag status-right "#{E:@catppuccin_status_session}"
+
+        run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
       '';
     };
   };
