@@ -41,6 +41,9 @@
     # Databases
     postgresql # provides psql client
 
+    # Media
+    ffmpeg # audio/video transcoding; Minutes uses it for non-English m4a/mp3/ogg
+
     # GNU Utilities
     file
     which
